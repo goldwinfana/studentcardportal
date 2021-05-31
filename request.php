@@ -100,6 +100,7 @@ if(isset($_POST['login'])){
         if($sql->rowCount()  > 0){
             if($password == $results['password']){
                 $_SESSION['user'] = 'stuff';
+                $_SESSION['image'] = $results['image'];
                 $_SESSION['name'] = $results['first_name'].' '.$results['last_name'];
                 $_SESSION['id'] = $results['stuffNumber'];
                 $_SESSION["logged"] = true;
@@ -121,6 +122,7 @@ if(isset($_POST['login'])){
         if($sql->rowCount() > 0){
             if($password == $results['password']){
                 $_SESSION['user'] = 'student';
+                $_SESSION['image'] = $results['image'];
                 $_SESSION['name'] = $results['first_name'].' '.$results['last_name'];
                 $_SESSION['id'] = $results['studentNumber'];
                 $_SESSION["logged"] = true;

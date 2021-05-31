@@ -1,11 +1,13 @@
 <?php include '../session.php';
-if(isset($_SESSION['islogged'])){
+if(isset($_SESSION['logged'])){
     if($_SESSION['user'] =='admin'){
         header('location: ../admin/home.php');
     }
     else if($_SESSION['user'] =='stuff'){
         header('location: ../stuff/home.php');
     }
+}else{
+    header('location: ../login.php');
 }
 
 ?>
@@ -20,7 +22,7 @@ if(isset($_SESSION['islogged'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Student Card Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -119,9 +121,9 @@ if(isset($_SESSION['islogged'])){
                 <p>SOUTH CAMPUS</p>
                 <p>|||| |||||| ||||| ||||||||||| ||||||||</p>
             </div>
-            <div style="width: 25%;padding: 25px 0px">
-                <img src="../img/profile.png" width="150">
-            </div>
+            <a href="#" class="view-picture" style="width: 25%;padding: 25px 0px">
+                <img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?> " width="150">
+            </a>
 
         </div>
 
@@ -150,8 +152,7 @@ if(isset($_SESSION['islogged'])){
             <!--                </div>-->
             <!--            </div>-->
 
-
-            <div class="col-lg-8">
+            <div class="col-lg-8" style="width: 100%">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <i class="fa fa-volume-up"></i>   Announcements
@@ -162,17 +163,34 @@ if(isset($_SESSION['islogged'])){
                     <div class="panel-body">
                         <div>
 
-                            <table>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>News Event</th>
-                                </tr>
-                                <tr>
-                                    <td>26 May 2021</td>
-                                    <td>Welcome to the new year</td>
-                                </tr>
+                            <?php
 
-                            </table>
+                            $conn = $connect->open();
+                            $sql = $conn->prepare("SELECT * FROM announcement");
+                            $sql->execute();
+                            $datas = $sql->fetchAll();
+                            if($sql->rowCount() > 0){
+                                    echo '
+                                        <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>News Event</th>
+                                        </tr>';
+                                foreach ($datas as $data){
+                                    echo '
+                                    <tr>
+                                        <td>'.$data["date"].'</td>
+                                        <td>'.$data["news"].'</td>
+                                    </tr>
+                                        ';
+                                }
+                                echo '</table>';
+                            }else{
+                                echo 'No data found!';
+                            }
+
+                            ?>
+
 
                         </div>
                     </div>

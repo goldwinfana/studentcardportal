@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal" method="POST" action="sql.php" enctype="multipart/form-data"  onsubmit="return submitForm()">
+                <form class="form-horizontal" method="POST" action="query.php" enctype="multipart/form-data"  onsubmit="return submitForm()">
                     <div class="form-group">
                         <input class="form-control" placeholder="First Name" minlength="2" name="edit-first-name" type="text" onkeypress="return /[a-z]/i.test(event.key)" required>
                     </div>
@@ -37,9 +37,15 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label>Upload Image</label>
+                        <input class="form-control" placeholder="Password" name="edit-image" type="file" accept="image/png, image/gif, image/jpeg">
+
+                    </div>
+
 
                     <div class="form-group">
-                        <input class="form-control" placeholder="Password" name="edit-password" minlength="8" type="password" onkeyup="checkPassword()" required>
+                        <input class="form-control" placeholder="Password" name="edit-password" minlength="8" type="text" onkeyup="checkPassword()" required>
                         <label id="val-password"></label>
                     </div>
 
@@ -50,7 +56,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary btn-flat" name="edit-student"><i class="fa fa-save"></i> Save</button>
                 </form>
             </div>
         </div>
@@ -67,50 +73,69 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"><b>My Profile</b></h4>
                 </div>
-                <div class="modal-body" style="display: grid;">
+                <div class="modal-body" style="display: block;">
 
-                    <div style="text-align: center"><img src="../img/profile.png" alt="..." class="img-fluid rounded-circle"></div>
+                    <div style="width: 100%;padding: 15px 100px;"><img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?>" alt="..." style="width: inherit" class="img-fluid rounded-circle"></div>
 
-                    <hr/>
-                    <table>
-                        <tr>
-                            <td>Student Number</td>
-                            <td class="student-sNumber"></td>
-                        </tr>
-                        <tr>
-                            <td>First Name</td>
-                            <td class="student-first"></td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td class="student-last"></td>
-                        </tr>
-                        <tr>
-                            <td>E-Mail Address</td>
-                            <td class="student-email"></td>
-                        </tr>
-                        <tr>
-                            <td>ID Number</td>
-                            <td class="student-id"></td>
-                        </tr>
-                        <tr>
-                            <td>Age</td>
-                            <td class="student-age"></td>
-                        </tr>
-                        <tr>
-                            <td>Gender</td>
-                            <td class="student-gender"></td>
-                        </tr>
 
-                        <tr>
-                            <td>Profile Status</td>
-                            <td class="student-status"></td>
-                        </tr>
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Stuff Number</label>
+                            <span class="student-sNumber profile-span"></span>
+                        </div>
+                    </div>
 
-                    </table>
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <span class="student-first profile-span"></span>
+                        </div>
+                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <span class="student-last profile-span"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>E-Mail Address</label>
+                            <span class="student-email profile-span"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>ID Number</label>
+                            <span class="student-id profile-span"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <span class="student-age profile-span">5555</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <span class="student-gender profile-span"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Profile Status</label>
+                            <span class="student-status profile-span"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer" style="display: inline-flex">
                         <button type="submit" class="btn btn-warning btn-flat edit-profile" data-dismiss="modal"><i class="fa fa-save"></i> Edit</button>
                         </form>
                     </div>
@@ -122,7 +147,23 @@
 </div>
 </div>
 
+<div class="modal fade" id="view-picture">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Student Profile</b></h4>
+            </div>
+            <div class="modal-body" style="display: grid;">
 
+                <div style="width: 100%"><img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?>" style="width: inherit" alt="..." class="img-fluid rounded-circle"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div></div>
 
 <script>
 
@@ -243,6 +284,7 @@
             $('input[name=edit-id]').focus();
             return false;
         }
+
         return true;
 
     }
@@ -265,6 +307,11 @@
                     $('input[name=edit-id]').val(response.id_number);
                     $('select[name=edit-gender]').val(response.gender);
                     $('input[name=edit-password]').val(response.password);
+                    $('input[name=edit-image]').val(response.image);
+
+                    if(response.image ==''){
+                        $('input[name=edit-image]').attr('required',true);
+                    }
 
                 }});
             $('#edit-profile').modal('show');

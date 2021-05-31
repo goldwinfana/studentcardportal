@@ -14,14 +14,64 @@ if (isset($_POST['getStudent'])) {
 }
 
 if(isset($_POST['edit-student'])) {
-    $id = $_POST['edit-student'];
-    $fname = $_POST['student-first-name'];
-    $lname = $_POST['student-last-name'];
-    $email = $_POST['student-email'];
-    $id_number = $_POST['student-id'];
-    $gender = $_POST['student-gender'];
-    $status = $_POST['student-status'];
-    $password= $_POST['student-password'];
+    $id = $_SESSION['id'];
+    $fname = $_POST['edit-first-name'];
+    $lname = $_POST['edit-last-name'];
+    $email = $_POST['edit-email'];
+    $id_number = $_POST['edit-id'];
+    $gender = $_POST['edit-gender'];
+    $password= $_POST['edit-password'];
+
+
+    $sql = $query->prepare("SELECT * FROM admin WHERE email =:email");
+    $sql->execute(['email'=>$email]);
+    if($sql->rowCount() > 0){
+        $_SESSION['error'] = 'Email already exits';
+        header('location: '.$return);
+        exit(0);
+    }
+
+    $sql = $query->prepare("SELECT * FROM stuff WHERE email =:email");
+    $sql->execute(['email'=>$email]);
+    if($sql->rowCount() > 0){
+        $_SESSION['error'] = 'Email already exits';
+        header('location: '.$return);
+        exit(0);
+    }
+
+    $sql = $query->prepare("SELECT * FROM student WHERE email =:email AND studentNumber<>:studentNumber");
+    $sql->execute(['email'=>$email,'studentNumber'=>$id]);
+    if($sql->rowCount() > 0){
+        $_SESSION['error'] = 'Email already exits';
+        header('location: '.$return);
+        exit(0);
+    }
+
+
+    if(isset($_FILES['edit-image']['name'])){
+        $currentDirectory = getcwd();
+        $uploadDirectory = "/uploads/";
+        $fileName = $_FILES['edit-image']['name'];
+        $fileTmpName  = $_FILES['edit-image']['tmp_name'];
+        $fileExtensionsAllowed = ['jpeg','jpg','png'];
+        $fileExtension = strtolower(end(explode('.',$fileName)));
+        if (! in_array($fileExtension,$fileExtensionsAllowed)) {
+            $_SESSION['error'] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+            header('Location: '.$return);
+            exit(0);
+        }
+
+
+        $uploadPath = $currentDirectory . $uploadDirectory . basename($fileName);
+    }else{
+        $fileName ='';
+    }
+
+    //$fileSize = $_FILES['the_file']['size'];
+//    if ($fileSize > 4000000) {
+//        $errors[] = "File exceeds maximum size (4MB)";
+//    }
+
 
     $sql = $query->prepare("SELECT * FROM student WHERE studentNumber=:studentNumber ");
     $sql->execute(['studentNumber' => $id]);
@@ -32,33 +82,27 @@ if(isset($_POST['edit-student'])) {
 
         try{
             $sql = $query->prepare("UPDATE student SET first_name=:first_name,last_name=:last_name, email=:email, 
-                                                    id_number=:id_number,status=:status,gender=:gender,password=:password
+                                                    id_number=:id_number,gender=:gender,image=:image,password=:password
                                          WHERE studentNumber=:studentNumber");
-            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number, 'gender'=>$gender,'status'=>$status,
+            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number, 'gender'=>$gender,'image'=>$fileName,
                 'password'=>$password,'studentNumber'=>$id]);
             $_SESSION['success'] = 'Student updated successfully';
+            $_SESSION['image'] = $fileName;
+            if(isset($_FILES['edit-image']['name'])) {
+                $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+                if ($didUpload) {
+                    $_SESSION['image'] = $fileName;
+                } else {
+                    $_SESSION['error'] = 'Image could not be uploaded';
+                }
+            }
+
         }catch (Exception $e){
             $_SESSION['error'] = $e->getMessage();
         }
 
     }
     header('Location: '.$return);
-}
-
-if(isset($_POST['delete-student'])){
-    $studentNumber = $_POST['delete-student'];
-
-    try{
-        $sql = $query->prepare("DELETE FROM student WHERE studentNumber=:studentNumber");
-        $sql->execute(['studentNumber'=>$studentNumber]);
-
-        $_SESSION['success'] = 'Student deleted successfully';
-    }
-    catch(PDOException $e){
-        $_SESSION['error'] = $e->getMessage();
-    }
-    header('Location: '.$return);
-
 }
 
 

@@ -1,5 +1,5 @@
 <?php include 'session.php';
-if(isset($_SESSION['islogged'])){
+if(isset($_SESSION['logged'])){
     if($_SESSION['user'] =='admin'){
         header('location: admin/home.php');
     }
@@ -9,6 +9,7 @@ if(isset($_SESSION['islogged'])){
         header('location: stuff/home.php');
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@ if(isset($_SESSION['islogged'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Student Card Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

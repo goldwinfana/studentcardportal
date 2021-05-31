@@ -1,10 +1,12 @@
 <?php include '../session.php';
-if(isset($_SESSION['islogged'])){
+if(isset($_SESSION['logged'])){
    if($_SESSION['user'] =='student'){
         header('location: ../student/home.php');
     }else if($_SESSION['user'] =='stuff'){
         header('location: ../stuff/home.php');
     }
+}else{
+    header('location: ../login.php');
 }
 
 ?>
@@ -19,7 +21,7 @@ if(isset($_SESSION['islogged'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Student Card Portal</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
@@ -74,12 +76,11 @@ if(isset($_SESSION['islogged'])){
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a class="view-profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
+
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -109,10 +110,10 @@ if(isset($_SESSION['islogged'])){
                             <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="">Admin</a>
+                                    <a href="admins.php">Admin</a>
                                 </li>
                                 <li>
-                                    <a href="">Stuff</a>
+                                    <a href="stuff.php">Stuff</a>
                                 </li>
                                 <li>
                                     <a href="students.php">Student</a>
@@ -155,11 +156,24 @@ if(isset($_SESSION['islogged'])){
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
+                                    <div class="huge">
+                                        <?php
+
+                                        $conn = $connect->open();
+                                        $sql = $conn->prepare("
+                                        SELECT (select count(*) from admin)+(select count(*) from student)+
+                                        (select count(*) from stuff ) AS counter");
+                                        $sql->execute();
+                                        $count = $sql->fetch();
+                                        echo ($count['counter']);
+                                        $connect->close();
+                                        ?>
+
+                                    </div>
+                                    <div>Total users</div>
                                 </div>
                             </div>
                         </div>
@@ -177,15 +191,25 @@ if(isset($_SESSION['islogged'])){
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-user-secret fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge">
+                                        <?php
+
+                                        $conn = $connect->open();
+                                        $sql = $conn->prepare("select count(*) AS counter from admin ");
+                                        $sql->execute();
+                                        $count = $sql->fetch();
+                                        echo ($count['counter']);
+                                        $connect->close();
+                                        ?>
+                                    </div>
+                                    <div>Admins</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="admins.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -199,15 +223,25 @@ if(isset($_SESSION['islogged'])){
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-user fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge">
+                                        <?php
+
+                                        $conn = $connect->open();
+                                        $sql = $conn->prepare("select count(*) AS counter from stuff ");
+                                        $sql->execute();
+                                        $count = $sql->fetch();
+                                        echo ($count['counter']);
+                                        $connect->close();
+                                        ?>
+                                    </div>
+                                    <div>Stuff</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="stuff.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -221,15 +255,25 @@ if(isset($_SESSION['islogged'])){
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-graduation-cap fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge">
+                                        <?php
+
+                                        $conn = $connect->open();
+                                        $sql = $conn->prepare("select count(*) AS counter from student ");
+                                        $sql->execute();
+                                        $count = $sql->fetch();
+                                        echo ($count['counter']);
+                                        $connect->close();
+                                        ?>
+                                    </div>
+                                    <div>Students</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="student.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -239,48 +283,84 @@ if(isset($_SESSION['islogged'])){
                     </div>
                 </div>
             </div>
+
+            <div class="session-msg">
+                <?php
+                if(isset($_SESSION['error'])){
+                    echo "
+            <div class='alert alert-danger alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-warning'></i> Error!</h4>
+              ".$_SESSION['error']."
+            </div>
+          ";
+                    unset($_SESSION['error']);
+                }
+                if(isset($_SESSION['success'])){
+                    echo "
+            <div class='alert alert-success alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-check'></i> Success!</h4>
+              ".$_SESSION['success']."
+            </div>
+          ";
+                    unset($_SESSION['success']);
+                }
+                ?>
+            </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Edit</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table id="table" class="table table-bordered">
-                                <tr>
-                                    <th>Date</th>
-                                    <th>News Event</th>
-                                </tr>
-                                <tr>
-                                    <td>26 May 2021</td>
-                                    <td>Welcome to the new year</td>
-                                </tr>
-                                <tr>
-                                    <td>26 May 2021</td>
-                                    <td>Registration are now open for 2021</td>
-                                </tr>
+                        <div class="col-lg-8">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-volume-up"></i>   Announcements
+                                    <div class="pull-right"><button class="new-announce"><i class="fa fa-plus"></i> New</button>
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div>
 
-                            </table>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
+                                        <?php
+
+                                        $conn = $connect->open();
+                                        $sql = $conn->prepare("SELECT * FROM announcement");
+                                        $sql->execute();
+                                        $datas = $sql->fetchAll();
+                                        if($sql->rowCount() > 0){
+                                            echo '
+                                        <table id="table" class="table-hover table-bordered table-striped" style="width: 100%">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>News Event</th>
+                                            <th>Action</th>
+                                        </tr>';
+                                            foreach ($datas as $data){
+                                                echo '
+                                    <tr>
+                                        <td>'.$data["date"].'</td>
+                                        <td>'.$data["news"].'</td>
+                                        <td>
+                                          <a id="'.$data["id"].'" style="padding: 5px" class="fa fa-pencil text-warning edit-announce"></a>
+                                          <a id="'.$data["id"].'" style="padding: 5px"  class="fa fa-trash text-danger delete-announce"></a>
+                                        
+                                        </td>
+                                    </tr>
+                                        ';
+                                            }
+                                            echo '</table>';
+                                        }else{
+                                            echo 'No data found!';
+                                        }
+
+                                        ?>
+
+
+                                    </div>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
 
                 </div>
                 <!-- /.col-lg-8 -->
@@ -290,7 +370,7 @@ if(isset($_SESSION['islogged'])){
                             <i class="fa fa-bell fa-fw"></i> Notifications Panel
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
+                        <div class="panel-body" hidden>
                             <div class="list-group">
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> New Comment
@@ -354,16 +434,16 @@ if(isset($_SESSION['islogged'])){
 
     </div>
     <!-- /#wrapper -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
-    <script>
-        $(function() {
-            $(document).ready(function () {
-                $('#table').DataTable();
-            });
-
-        });
-    </script>
+<!--    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>-->
+<!--    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>-->
+<!--    <script>-->
+<!--        $(function() {-->
+<!--            $(document).ready(function () {-->
+<!--                $('#table').DataTable();-->
+<!--            });-->
+<!---->
+<!--        });-->
+<!--    </script>-->
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
 
@@ -378,6 +458,8 @@ if(isset($_SESSION['islogged'])){
     <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
     <script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
+<?php include('modal.php') ?>

@@ -39,11 +39,11 @@
 
                     <div class="form-group">
                         <label>Upload Image</label>
-                        <input class="form-control" placeholder="Password" name="edit-image" type="file">
+                        <input class="form-control" placeholder="Password" name="edit-image" type="file" accept="image/png, image/gif, image/jpeg">
                     </div>
 
                     <div class="form-group">
-                        <input class="form-control" placeholder="Password" name="edit-password" minlength="8" type="password" onkeyup="checkPassword()" required>
+                        <input class="form-control" placeholder="Password" name="edit-password" minlength="8" type="text" onkeyup="checkPassword()" required>
                         <label id="val-password"></label>
                     </div>
 
@@ -51,6 +51,7 @@
                         <input class="form-control" placeholder="Confirm Password" name="edit-confirm-password" minlength="8" type="password" onkeyup="checkMatch()" required>
                         <label id="val-confirm-password"></label>
                     </div>
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
@@ -71,49 +72,69 @@
                     <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><b>My Profile</b></h4>
             </div>
-            <div class="modal-body" style="display: grid;">
+            <div class="modal-body" style="display: block;">
 
-                <div style="text-align: center"><img src="../img/profile.png" alt="..." class="img-fluid rounded-circle"></div>
+                <div style="padding: 15px 100px;width: 100%"><img src="<?php echo "uploads/".$_SESSION["image"] ?>" alt="..." style="width: inherit" class="img-fluid rounded-circle"></div>
 
-                <hr/>
-                <table>
-                    <tr>
-                        <td>Stuff Number</td>
-                        <td class="stuff-sNumber"></td>
-                    </tr>
-                    <tr>
-                        <td>First Name</td>
-                        <td class="stuff-first"></td>
-                    </tr>
-                    <tr>
-                        <td>Last Name</td>
-                        <td class="stuff-last"></td>
-                    </tr>
-                    <tr>
-                        <td>E-Mail Address</td>
-                        <td class="stuff-email"></td>
-                    </tr>
-                    <tr>
-                        <td>ID Number</td>
-                        <td class="stuff-id"></td>
-                    </tr>
-                    <tr>
-                        <td>Age</td>
-                        <td class="stuff-age"></td>
-                    </tr>
-                    <tr>
-                        <td>Gender</td>
-                        <td class="stuff-gender"></td>
-                    </tr>
-                    <tr>
-                        <td>Profile Status</td>
-                        <td class="stuff-status"></td>
-                    </tr>
 
-                </table>
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Stuff Number</label>
+                                <span class="stuff-sNumber profile-span"></span>
+                            </div>
+                        </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <span class="stuff-first profile-span"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <span class="stuff-last profile-span"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>E-Mail Address</label>
+                                <span class="stuff-email profile-span"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>ID Number</label>
+                                <span class="stuff-id profile-span"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <span class="stuff-age profile-span">5555</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <span class="stuff-gender profile-span"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Profile Status</label>
+                                <span class="stuff-status profile-span"></span>
+                            </div>
+                        </div>
+
+
+                <div class="modal-footer" style="display: inline-flex">
                     <button type="submit" class="btn btn-warning btn-flat edit-profile" data-dismiss="modal"><i class="fa fa-save"></i> Edit</button>
                     </form>
                 </div>
@@ -134,7 +155,7 @@
             </div>
             <div class="modal-body" style="display: grid;">
 
-                <div style="text-align: center"><img src="../img/profile.png" alt="..." class="img-fluid rounded-circle"></div>
+                <div style="width: 100%"><img src="<?php echo "uploads/".$_SESSION["image"] ?>" style="width: inherit" alt="..." class="img-fluid rounded-circle"></div>
 
             </div>
         </div>
@@ -273,7 +294,7 @@
                 type: 'POST',
                 url: './query.php',
                 data: {
-                    getData: 2
+                    getStuff: 2
                 },
                 dataType: 'json',
                 success: function (response) {
@@ -282,7 +303,7 @@
                     $('input[name=edit-last-name]').val(response.last_name);
                     $('input[name=edit-email]').val(response.email);
                     $('input[name=edit-id]').val(response.id_number);
-                    $('input[name=edit-gender]').val(response.gender);
+                    $('select[name=edit-gender]').val(response.gender);
                     $('input[name=edit-password]').val(response.password);
 
                 }});
@@ -296,7 +317,7 @@
                 type: 'POST',
                 url: './query.php',
                 data: {
-                    getData: 5
+                    getStuff: 5
                 },
                 dataType: 'json',
                 success: function (response) {
@@ -313,7 +334,7 @@
                     $('.stuff-gender').html(response.gender);
                     $('.stuff-age').html(age);
                     $('.stuff-sNumber').html(response.stuffNumber);
-                    $('.stuff-status').html(response.status);
+                    $('.stuff-status').html(response.name);
 
                 }});
 

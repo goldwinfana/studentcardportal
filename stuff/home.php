@@ -1,11 +1,13 @@
 <?php include '../session.php';
-if(isset($_SESSION['islogged'])){
+if(isset($_SESSION['logged'])){
     if($_SESSION['user'] =='admin'){
         header('location: ../admin/home.php');
     }
     else if($_SESSION['user'] =='student'){
         header('location: ../student/home.php');
     }
+}else{
+    header('location: ../login.php');
 }
 
 ?>
@@ -124,7 +126,7 @@ if(isset($_SESSION['islogged'])){
                 <p>|||| |||||| ||||| ||||||||||| ||||||||</p>
             </div>
             <a href="#" class="view-picture" style="width: 25%;padding: 25px 0px">
-                <img src="../img/profile.png" width="150">
+                <img src="<?php echo "uploads/".$_SESSION["image"] ?>" width="150">
             </a>
 
         </div>
@@ -155,8 +157,7 @@ if(isset($_SESSION['islogged'])){
 <!--            </div>-->
 
 
-            <div class="col-lg-8">
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="width: 100%">
                     <div class="panel-heading">
                         <i class="fa fa-volume-up"></i>   Announcements
                         <div class="pull-right">
@@ -166,22 +167,37 @@ if(isset($_SESSION['islogged'])){
                     <div class="panel-body">
                         <div>
 
-                            <table>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>News Event</th>
-                                </tr>
-                                <tr>
-                                    <td>26 May 2021</td>
-                                    <td>Welcome to the new year</td>
-                                </tr>
+                            <?php
 
-                            </table>
+                            $conn = $connect->open();
+                            $sql = $conn->prepare("SELECT * FROM announcement");
+                            $sql->execute();
+                            $datas = $sql->fetchAll();
+                            if($sql->rowCount() > 0){
+                                echo '
+                                        <table>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>News Event</th>
+                                        </tr>';
+                                foreach ($datas as $data){
+                                    echo '
+                                    <tr>
+                                        <td>'.$data["date"].'</td>
+                                        <td>'.$data["news"].'</td>
+                                    </tr>
+                                        ';
+                                }
+                                echo '</table>';
+                            }else{
+                                echo 'No data found!';
+                            }
+
+                            ?>
 
                         </div>
                     </div>
                     <!-- /.panel-body -->
-                </div>
 
             </div>
             <!-- /.col-lg-4 -->

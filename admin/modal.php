@@ -51,7 +51,94 @@
 </div>
 </div></div>
 
-//admin
+
+<div class="modal fade" id="new-announce">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Add Announcement</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php">
+
+                    <div class="form-group">
+                        <textarea name="announce" placeholder="Type in message here..." style="height: 200px;width: 80%"></textarea>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="edit-announce">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Edit Announcement</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php">
+
+                    <input name="announce-id" hidden>
+                    <div class="form-group">
+                        <textarea name="edit-news" placeholder="Type in message here..." style="height: 200px;width: 80%"></textarea>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade" id="delete-announce">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Delete Announcement</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php">
+                    <input name="delete-announce" hidden>
+
+                    <div class="form-group">
+                        <label class="lbl-dlt"></label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!--//admin-->
 <div class="modal fade" id="edit-admin">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -139,7 +226,7 @@
 </div>
 </div>
 
-//student
+<!--//student-->
 <div class="modal fade" id="edit-student">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -238,7 +325,7 @@
 </div>
 </div>
 
-//stuff
+<!--//stuff-->
 <div class="modal fade" id="edit-stuff">
     <div class="modal-dialog">
         <div class="modal-content">

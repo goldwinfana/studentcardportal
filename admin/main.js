@@ -507,6 +507,38 @@ $(function() {
         $('#view-picture').modal('show');
     });
 
+
+    //announcements
+    $('.new-announce').on('click', function () {
+
+        $('#new-announce').modal('show');
+    });
+
+    $('.delete-announce').on('click', function () {
+
+        $('input[name=delete-announce]').val(this.id);
+        $('.lbl-dlt').html('Confirm delete for announcement id: <i class="text-danger">'+this.id+'</i>');
+        $('#delete-announce').modal('show');
+    });
+    $('.edit-announce').on('click', function () {
+        $('input[name=announce-id]').val(this.id);
+        $.ajax({
+            type: 'POST',
+            url: './query.php',
+            data: {
+                getAnnounce: this.id
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                $('textarea[name=edit-news]').val(response.news);
+
+            }});
+        $('#edit-announce').modal('show');
+    });
+
+
+
     //admin
     $('.edit-admin').on('click', function () {
 

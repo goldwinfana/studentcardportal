@@ -63,6 +63,57 @@ if(isset($_POST['new-user'])) {
 
 }
 
+
+if(isset($_POST['announce'])){
+    $news = $_POST['announce'];
+    $sql = $query->prepare("INSERT INTO announcement(news) VALUES (:news)");
+    $sql->execute(['news'=>$news]);
+    $_SESSION['success'] = 'Announcement added successfully';
+    header('Location: '.$return);
+}
+
+if(isset($_POST['delete-announce'])){
+    $newsID = $_POST['delete-announce'];
+
+    try{
+        $sql = $query->prepare("DELETE FROM announcement WHERE id=:id");
+        $sql->execute(['id'=>$newsID]);
+
+        $_SESSION['success'] = 'Announcement deleted successfully';
+    }
+    catch(PDOException $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+    header('Location: '.$return);
+
+}
+
+if (isset($_POST['getAnnounce'])) {
+    $id= $_POST['getAnnounce'];
+
+    $sql = $query->prepare("SELECT * FROM announcement WHERE id=:id");
+    $sql->execute(['id' => $id]);
+    $results = $sql->fetch();
+
+    echo json_encode($results);
+}
+
+if(isset($_POST['edit-news'])) {
+    $id = $_POST['announce-id'];
+    $news = $_POST['edit-news'];
+
+    try{
+        $sql = $query->prepare("UPDATE announcement SET news=:news WHERE id=:id");
+        $sql->execute(['news'=>$news,'id'=>$id]);
+        $_SESSION['success'] = 'Announcement updated successfully';
+
+    }catch (Exception $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+
+    header('Location: '.$return);
+}
+
 //admin
 
 if (isset($_POST['getAdmin'])) {
