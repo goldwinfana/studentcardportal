@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2021 at 08:21 PM
+-- Generation Time: May 31, 2021 at 09:00 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -41,8 +41,27 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `id_number`, `gender`, `password`) VALUES
-(1, 'admins', 'admin@gmail.com', '5501025555555', 'male', '1234@Abc'),
-(2, 'test', 'admin3@gmail.com', '9911111111115', 'male', '1234@Abc');
+(1, 'admins', 'admin@gmail.com', '5501025555555', 'male', '1234@Abc');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement`
+--
+
+CREATE TABLE `announcement` (
+  `id` int(11) NOT NULL,
+  `news` varchar(255) NOT NULL,
+  `date` varchar(255) DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `news`, `date`) VALUES
+(2, 'welcome to the new years', '2021-05-30 19:47:50'),
+(3, 'Classes will start next week', '2021-05-30 21:17:06');
 
 -- --------------------------------------------------------
 
@@ -82,15 +101,6 @@ CREATE TABLE `student` (
   `password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`id`, `studentNumber`, `first_name`, `last_name`, `email`, `gender`, `id_number`, `image`, `status`, `password`) VALUES
-(4, 2021020216, 'admins', 'mal', 'admin2@gmail.com', 'female', '2147483647', '', 'active', '1234@Abc'),
-(7, 211111698, 'mac', 'bila', 'bila@gmail.com', 'male', '0011111111111', '', '1', '1234@Abc'),
-(9, 2021111192, 'lastborn', 'bila', 'last@gmail.com', 'male', '0235555555555', NULL, '1', '1234@abc');
-
 -- --------------------------------------------------------
 
 --
@@ -111,14 +121,6 @@ CREATE TABLE `stuff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `stuff`
---
-
-INSERT INTO `stuff` (`id`, `stuffNumber`, `first_name`, `last_name`, `email`, `gender`, `id_number`, `image`, `status`, `password`) VALUES
-(2, 211111177, 'less', 'majola', 'rose@gmail.com', 'male', '9911111111111', '', '1', '1234@Abc'),
-(4, 2021111180, 'testing ', 'majola', 'tests@gmail.com', 'female', '9911111111117', NULL, '0', '1234@Abc');
-
---
 -- Indexes for dumped tables
 --
 
@@ -126,6 +128,12 @@ INSERT INTO `stuff` (`id`, `stuffNumber`, `first_name`, `last_name`, `email`, `g
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `announcement`
+--
+ALTER TABLE `announcement`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -155,6 +163,12 @@ ALTER TABLE `stuff`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `announcement`
+--
+ALTER TABLE `announcement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status`
