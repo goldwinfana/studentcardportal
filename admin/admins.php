@@ -19,7 +19,7 @@ if(isset($_SESSION['islogged'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Student Card Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -118,6 +118,7 @@ if(isset($_SESSION['islogged'])){
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li><a href="timetable.php"><i class="fa fa-calendar-times-o fa-fw"></i> Time Table</a>
                         <li><a href="../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
 <!--                        <li>-->
@@ -238,10 +239,10 @@ if(isset($_SESSION['islogged'])){
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../js/sb-admin-2.js"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/bootTables.min.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
     <script src="main.js"></script>
 </body>
 

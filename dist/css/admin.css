@@ -50,6 +50,26 @@ input{
     border-left: 1px solid #e7e7e7;
   }
 }
+@media (max-width: 800px) {
+  .timetable-width{
+    display: block !important;
+  }
+  .row{
+    margin: 5px !important;
+  }
+}
+
+
+.timetable-width{
+  margin: 25px 0px;
+  display: flex;
+}
+
+
+navbar{
+  height: 55px !important;
+}
+
 .navbar-top-links {
   margin-right: 0;
 }

@@ -19,7 +19,7 @@ function checkEmail() {
             if(count > 2 || count ==0){
                 $('#val-email').css('color','orange').html('<span>Invalid email</span>');
             }else{
-                if(afterDot=='.com' ||afterDot=='.co.za' ||afterDot=='.org.za' ||afterDot=='.org' ||afterDot=='.tv'){
+                if(afterDot=='.com' ||afterDot=='.co.za' ||afterDot=='.org.za'||afterDot=='.ac.za' ||afterDot=='.org' ||afterDot=='.tv'){
                     $('#val-email').css('color','green').html('<span>Valid email</span>');
                 }else{
                     $('#val-email').css('color','orange').html('<span>Invalid email</span>');
@@ -118,5 +118,25 @@ function submitForm(){
     }
     return true;
 
+}
+
+function getFaculty() {
+    var value = $('select[name=department]').val();
+
+    $('select[name=faculty]').html('<option value="" selected disabled>Select faculty</option>');
+    $.ajax({
+        type: 'POST',
+        url: './request.php',
+        data: {
+            getFaculty: value
+        },
+        dataType: 'json',
+        success: function (response) {
+
+            $.each(response,function (key,data) {
+               $('select[name=faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
+            });
+
+        }});
 }
 

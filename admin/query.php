@@ -3,6 +3,7 @@ include '../session.php';
 $query = $connect->open();
 $return = $_SERVER['HTTP_REFERER'];
 
+
 if(isset($_POST['new-user'])) {
 
     $email = $_POST['email'];
@@ -63,6 +64,24 @@ if(isset($_POST['new-user'])) {
 
 }
 
+if(isset($_POST['add-timetable'])){
+    $faculty = $_POST['student-faculty'];
+    $department = $_POST['department'];
+    $subject = $_POST['subject'];
+    $venue= str_replace('T',' ',$_POST['venue']);
+    $date =$_POST['date'];
+
+    try {
+        $sql = $query->prepare("INSERT INTO timetable(departmentID,facultyID,subjectCode,venue,date) 
+                                     VALUES (:departmentID,:facultyID,:subjectCode,:venue,:date)");
+        $sql->execute(['departmentID'=>$department,'facultyID'=>$faculty,'subjectCode'=>$subject,'venue'=>$venue,'date'=>$date]);
+        $_SESSION['success'] = 'Subject time table created successfully';
+    }catch (Exception $e){
+        $_SESSION['error']=$e->getMessage();
+    }
+
+    header('Location: '.$return);
+}
 
 if(isset($_POST['announce'])){
     $news = $_POST['announce'];
@@ -181,7 +200,8 @@ if(isset($_POST['delete-admin'])){
 if (isset($_POST['getStudent'])) {
     $studentNumber = $_POST['getStudent'];
 
-    $sql = $query->prepare("SELECT * FROM student,status WHERE studentNumber=:studentNumber AND status.id = student.status");
+    $sql = $query->prepare("SELECT *,faculty.name AS facName,status.id AS statName FROM student,status,faculty WHERE studentNumber=:studentNumber 
+                                     AND status.id = student.status AND faculty.id = student.faculty");
     $sql->execute(['studentNumber' => $studentNumber]);
     $results = $sql->fetch();
 
@@ -197,6 +217,7 @@ if(isset($_POST['edit-student'])) {
     $gender = $_POST['student-gender'];
     $status = $_POST['student-status'];
     $password= $_POST['student-password'];
+    $faculty= $_POST['student-faculty'];
 
     $sql = $query->prepare("SELECT * FROM student WHERE studentNumber=:studentNumber ");
     $sql->execute(['studentNumber' => $id]);
@@ -207,10 +228,10 @@ if(isset($_POST['edit-student'])) {
 
         try{
             $sql = $query->prepare("UPDATE student SET first_name=:first_name,last_name=:last_name, email=:email, 
-                                                    id_number=:id_number,status=:status,gender=:gender,password=:password
+                                                    id_number=:id_number,status=:status,gender=:gender,faculty=:faculty,password=:password
                                          WHERE studentNumber=:studentNumber");
-            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number, 'gender'=>$gender,'status'=>$status,
-                'password'=>$password,'studentNumber'=>$id]);
+            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number,'gender'=>$gender,'status'=>$status,
+                'password'=>$password,'faculty'=>$faculty,'studentNumber'=>$id]);
             $_SESSION['success'] = 'Student updated successfully';
         }catch (Exception $e){
             $_SESSION['error'] = $e->getMessage();
@@ -304,7 +325,7 @@ if (isset($_POST['profile_admin'])) {
     $name = $_POST['name'];
     $mobile = $_POST['mobile'];
 
-    $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM admin WHERE email=:email AND id <>:id");
+    $stmt = $query->prepare("SELECT COUNT(*) AS numrows FROM admin WHERE email=:email AND id <>:id");
     $stmt->execute(['email'=>$email, 'id'=>$id]);
     $row = $stmt->fetch();
     if($row['numrows'] > 0){
@@ -312,7 +333,7 @@ if (isset($_POST['profile_admin'])) {
     }
     else {
 
-        $stmt = $conn->prepare("UPDATE admin SET email=:email, password=:password, firstName=:name,
+        $stmt = $query->prepare("UPDATE admin SET email=:email, password=:password, firstName=:name,
                                          mobile=:mobile
                                          WHERE id=:id");
         $stmt->execute(['email' => $email, 'password' => $password, 'name' =>
@@ -331,7 +352,7 @@ if (isset($_POST['edit_admins'])) {
     $name = $_POST['name'];
     $mobile = $_POST['mobile'];
 
-    $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM admin WHERE email=:email AND id <>:id");
+    $stmt = $query->prepare("SELECT COUNT(*) AS numrows FROM admin WHERE email=:email AND id <>:id");
     $stmt->execute(['email'=>$email, 'id'=>$id]);
     $row = $stmt->fetch();
     if($row['numrows'] > 0){
@@ -339,7 +360,7 @@ if (isset($_POST['edit_admins'])) {
     }
     else {
 
-        $stmt = $conn->prepare("UPDATE admin SET email=:email, password=:password, name=:name,
+        $stmt = $query->prepare("UPDATE admin SET email=:email, password=:password, name=:name,
                                          mobile=:mobile
                                          WHERE id=:id");
         $stmt->execute(['email' => $email, 'password' => $password, 'name' =>
@@ -350,7 +371,33 @@ if (isset($_POST['edit_admins'])) {
     header('location: welcome.php');
 }
 
+if (isset($_POST['getFaculty'])) {
+    $getFaculty = $_POST['getFaculty'];
 
+    try {
+        $sql = $query->prepare("SELECT * FROM faculty WHERE depID=:id");
+        $sql->execute(['id' => $getFaculty]);
+        $results = $sql->fetchAll();
+    }catch (Exception $e){
+        $results = $e->getMessage();
+    }
+
+    echo json_encode($results);
+}
+
+if (isset($_POST['getSubject'])) {
+    $getFaculty = $_POST['getSubject'];
+
+    try {
+        $sql = $query->prepare("SELECT * FROM subject WHERE facultyID=:id");
+        $sql->execute(['id' => $getFaculty]);
+        $results = $sql->fetchAll();
+    }catch (Exception $e){
+        $results = $e->getMessage();
+    }
+
+    echo json_encode($results);
+}
 
 $connect->close();
 

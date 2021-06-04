@@ -502,3 +502,22 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
+
+.flex-width {
+  width: 50%;
+  margin: 5% 25% ;
+}
+
+navbar{
+  height: 55px !important;
+}
+
+@media (max-width: 999px) {
+  .flex-width {
+    width: 100% !important;
+    margin-top: auto !important;
+  }
+  .timeTable{
+    display: block!important;
+  }
+}

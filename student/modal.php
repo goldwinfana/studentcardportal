@@ -134,6 +134,20 @@
                         </div>
                     </div>
 
+                    <hr/>
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <span class="student-dep profile-span"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Faculty</label>
+                            <span class="student-fac profile-span"></span>
+                        </div>
+                    </div>
+
 
                     <div class="modal-footer" style="display: inline-flex">
                         <button type="submit" class="btn btn-warning btn-flat edit-profile" data-dismiss="modal"><i class="fa fa-save"></i> Edit</button>
@@ -342,6 +356,8 @@
                     $('.student-age').html(age);
                     $('.student-sNumber').html(response.studentNumber);
                     $('.student-status').html(response.name);
+                    $('.student-dep').html(response.depName);
+                    $('.student-fac').html(response.facName);
 
                 }});
 

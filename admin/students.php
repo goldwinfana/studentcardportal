@@ -19,7 +19,7 @@ if(isset($_SESSION['islogged'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Student Card Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -118,6 +118,7 @@ if(isset($_SESSION['islogged'])){
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li><a href="timetable.php"><i class="fa fa-calendar-times-o fa-fw"></i> Time Table</a>
                         <li><a href="../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
 <!--                        <li>-->
@@ -182,7 +183,7 @@ if(isset($_SESSION['islogged'])){
                             <th>Name</th>
                             <th>Identity Number</th>
                             <th>Gender</th>
-                            <th>Status</th>
+                            <th>Faculty</th>
                             <th>Action</th>
 
                         </thead>
@@ -191,7 +192,7 @@ if(isset($_SESSION['islogged'])){
                         <?php
 
                         $query = $connect->open();
-                        $sql = $query->prepare("SELECT * FROM student,status where student.status=status.id");
+                        $sql = $query->prepare("SELECT * FROM student,faculty where student.faculty=faculty.id");
                         $sql->execute();
 
                         if($sql->rowCount() > 0){
@@ -202,13 +203,9 @@ if(isset($_SESSION['islogged'])){
                                         <td>'.$data["studentNumber"].'</td>
                                         <td>'.$data["first_name"].' '.$data["last_name"].'</td>
                                         <td>'.$data["id_number"].'</td>
-                                        <td>'.$data["gender"].'</td>';
-                                        if($data["name"] =="active") {
-                                            echo '<td style="color: darkgreen">' . $data["name"] . '</td>';
-                                        }else{
-                                            echo '<td style="color: red">' . $data["name"] . '</td>';
-                                        }
-                                        echo '<td>
+                                        <td>'.$data["gender"].'</td>
+                                        <td style="color: darkgreen">' . $data["name"] . '</td>
+                                        <td>
                                             <div class="d-flex" >
                                                 <a id="'.$data["studentNumber"].'" class="action-btn btn-warning edit-student" title="Edit"><i class="fa fa-pencil"></i></a>
                                                 <a id="'.$data["studentNumber"].'" class="action-btn btn-danger delete-student" title="Delete"><i class="fa fa-trash"></i></a>
@@ -243,10 +240,10 @@ if(isset($_SESSION['islogged'])){
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../js/sb-admin-2.js"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/bootTables.min.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
     <script src="main.js"></script>
 </body>
 

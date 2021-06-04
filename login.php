@@ -1,4 +1,6 @@
 <?php include 'session.php';
+
+
 if(isset($_SESSION['logged'])){
     if($_SESSION['user'] =='admin'){
         header('location: admin/home.php');
@@ -83,7 +85,7 @@ if(isset($_SESSION['logged'])){
 
                 </div>
                 <div class="panel-body">
-                    <form action="request.php" method="post" onsubmit="return submitForm()">
+                    <form action="request.php" method="post" >
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="E-mail" name="email" type="email" required autofocus>

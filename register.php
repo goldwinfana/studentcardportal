@@ -47,7 +47,7 @@ if(isset($_SESSION['logged'])){
 
 <div class="container">
     <div class="row">
-        <div class="col-md-5 col-md-offset-4">
+        <div class=" flex-width">
             <?php
             if(isset($_SESSION['error'])){
                 echo "
@@ -112,14 +112,30 @@ if(isset($_SESSION['logged'])){
                                 </select>
                             </div>
 
-<!--                            <div class="form-group">-->
-<!--                                <select class="form-control" name="department" required>-->
-<!--                                    <option value="" selected disabled>Select gender</option>-->
-<!--                                    <option value="male">Male</option>-->
-<!--                                    <option value="female">Female</option>-->
-<!--                                    <option value="other">Other</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                            <div class="form-group">
+                                <select class="form-control" name="department" onchange="getFaculty()" required>
+                                    <option value="" selected disabled>Select department</option>
+                                    <?php
+
+                                    $conn = $connect->open();
+                                    $sql = $conn->prepare("SELECT * FROM department");
+                                    $sql->execute();
+                                    $datas = $sql->fetchAll();
+                                    if($sql->rowCount() > 0){
+                                        foreach ($datas as $data){
+                                            echo '<option value="'.$data["id"].'">'.$data["name"].'</option>';
+                                        }
+                                    }
+                                    $connect->close();
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" name="faculty" required>
+                                    <option value="" selected disabled>Select faculty</option>
+                                </select>
+                            </div>
 
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" name="password" minlength="8" type="password" onkeyup="checkPassword()" required>

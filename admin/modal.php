@@ -240,6 +240,32 @@
                 <form class="form-horizontal" method="POST" action="query.php" enctype="multipart/form-data"  onsubmit="return submitForm()">
 
                     <input name="edit-student" hidden>
+
+                    <div class="form-group">
+                        <select class="form-control getFaculty" name="department">
+                            <option value="" selected disabled>Select department</option>
+                            <?php
+
+                            $conn = $connect->open();
+                            $sql = $conn->prepare("SELECT * FROM department");
+                            $sql->execute();
+                            $datas = $sql->fetchAll();
+                            if($sql->rowCount() > 0){
+                                foreach ($datas as $data){
+                                    echo '<option value="'.$data["id"].'">'.$data["name"].'</option>';
+                                }
+                            }
+                            $connect->close();
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" name="student-faculty" required>
+                            <option value="" selected disabled>Select faculty</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <select style="background: palegoldenrod" class="form-control" name="student-status" required>
                             <option value="" selected disabled>Select status</option>
@@ -424,7 +450,7 @@
 </div>
 </div>
 
-///
+
 <div class="modal fade" id="add-user">
     <div class="modal-dialog">
         <div class="modal-content">

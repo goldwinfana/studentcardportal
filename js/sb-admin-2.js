@@ -48,6 +48,7 @@ $(function() {
 
 
     $('.nav-users').on('click',function () {
+
         if($('.nav-second-level').css('display') =='block'){
             $('.nav-second-level').fadeOut();
         }else{

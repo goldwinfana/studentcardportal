@@ -6,7 +6,9 @@ $return = $_SERVER['HTTP_REFERER'];
 if (isset($_POST['getStudent'])) {
     $studentNumber = $_SESSION['id'];
 
-    $sql = $query->prepare("SELECT * FROM student,status WHERE studentNumber=:studentNumber AND status.id = student.status");
+    $sql = $query->prepare("SELECT *,faculty.name AS facName,department.name AS depName FROM student,status,department,faculty 
+                                    WHERE studentNumber=:studentNumber AND status.id = student.status AND faculty.depID=department.id 
+                                    AND faculty.id = student.faculty");
     $sql->execute(['studentNumber' => $studentNumber]);
     $results = $sql->fetch();
 

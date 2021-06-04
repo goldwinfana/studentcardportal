@@ -104,10 +104,10 @@ if(isset($_SESSION['logged'])){
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="home.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
+                            <a href="#" class="nav-users"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="admins.php">Admin</a>
@@ -121,6 +121,7 @@ if(isset($_SESSION['logged'])){
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li><a href="timetable.php"><i class="fa fa-calendar-times-o fa-fw"></i> Time Table</a>
                         <li><a href="../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
 <!--                        <li>-->
@@ -273,7 +274,7 @@ if(isset($_SESSION['logged'])){
                                 </div>
                             </div>
                         </div>
-                        <a href="student.php">
+                        <a href="students.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -453,11 +454,9 @@ if(isset($_SESSION['logged'])){
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+    <script type="text/javascript" src="../js/dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/bootTables.min.js"></script>
+    <script src="../js/sb-admin-2.js"></script>
     <script src="main.js"></script>
 </body>
 

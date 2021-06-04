@@ -19,7 +19,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f861390-5b73-4b3b-a67d-3e9d0d7d37b9" name="Default Changelist" comment="" />
+    <list default="true" id="0f861390-5b73-4b3b-a67d-3e9d0d7d37b9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/admins.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/admins.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/query.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/query.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/students.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/students.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/stuff.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/stuff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/sb-admin-2.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/css/sb-admin-2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/sb-admin-2.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/sb-admin-2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/request.php" beforeDir="false" afterPath="$PROJECT_DIR$/request.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/student/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/student/modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/query.php" beforeDir="false" afterPath="$PROJECT_DIR$/student/query.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,18 +66,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/student" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\studentCardPortal\admin" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\studentcardportal\admin" />
       <recent name="C:\xampp\htdocs\studentcardportal\student" />
       <recent name="C:\xampp\htdocs\studentcardportal\stuff" />
       <recent name="C:\xampp\htdocs\studentcardportal" />
-      <recent name="C:\xampp\htdocs\studentCardPortal\admin" />
-      <recent name="C:\xampp\htdocs\studentCardPortal\stuff" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\studentCardPortal\admin" />
     </key>
   </component>
@@ -77,6 +96,9 @@
       <workItem from="1622372591488" duration="102000" />
       <workItem from="1622396355648" duration="18777000" />
       <workItem from="1622440769477" duration="2653000" />
+      <workItem from="1622652427288" duration="33337000" />
+      <workItem from="1622776146666" duration="65000" />
+      <workItem from="1622808369775" duration="3343000" />
     </task>
     <servers />
   </component>

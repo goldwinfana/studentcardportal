@@ -112,18 +112,77 @@ if(isset($_SESSION['logged'])){
             ?>
         </div>
 
+        <div class="row timeTable">
         <div class="card-body">
-            <div style="width: 60%">
-                <img src="../img/tut-logo.png" width="225">
-                <p><b>Student</b></p>
-                <p><?php echo strtoupper($_SESSION['name']); ?></p>
-                <p><?php echo $_SESSION['id']?></p>
-                <p>SOUTH CAMPUS</p>
-                <p>|||| |||||| ||||| ||||||||||| ||||||||</p>
+
+                <div style="width: 60%">
+                    <img src="../img/tut-logo.png" width="225">
+                    <p><b>Student</b></p>
+                    <p><?php echo strtoupper($_SESSION['name']); ?></p>
+                    <p><?php echo $_SESSION['id']?></p>
+                    <p>SOUTH CAMPUS</p>
+                    <p>|||| |||||| ||||| ||||||||||| ||||||||</p>
+                </div>
+                <a href="#" class="view-picture" style="width: 25%;padding: 25px 0px">
+                    <img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?> " width="150">
+                </a>
             </div>
-            <a href="#" class="view-picture" style="width: 25%;padding: 25px 0px">
-                <img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?> " width="150">
-            </a>
+            <div class="col-lg-8" style="width: 100%">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-calendar"></i>   Time table
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div>
+
+                            <?php
+
+                            $conn = $connect->open();
+                            $sql = $conn->prepare("SELECT *,faculty.name AS facName,department.name AS depName FROM timetable,department,faculty,student 
+                                                            WHERE timetable.departmentID=department.id 
+                                                            AND timetable.facultyID=faculty.id AND student.faculty=faculty.id AND student.studentNumber=:id");
+                            $sql->execute(['id'=>$_SESSION['id']]);
+                            $datas = $sql->fetchAll();
+                            if($sql->rowCount() > 0){
+                                echo '
+                                        <table id="time-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Department</th>
+                                            <th>Course</th>
+                                            <th>Module</th>
+                                            <th>Venue</th>
+                                             <th>Date</th>
+                                        </tr>
+                                        </thead><tbody>';
+                                foreach ($datas as $data){
+                                    echo '
+                                    <tr>
+                                    <td>'.$data["depName"].'</td>
+                                        <td>'.$data["facName"].'</td>
+                                        <td>'.$data["subjectCode"].'</td>
+                                        <td>'.$data["venue"].'</td>
+                                        <td>'.$data["date"].'</td>
+                                    </tr>
+                                        ';
+                                }
+                                echo '</tbody></table>';
+                            }else{
+                                echo 'No data found!';
+                            }
+
+                            ?>
+
+
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
 
         </div>
 
@@ -223,6 +282,15 @@ if(isset($_SESSION['logged'])){
 <script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
 <script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#time-table').DataTable();
+    });
+</script>
 
 </body>
 

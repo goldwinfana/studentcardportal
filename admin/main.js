@@ -585,12 +585,14 @@ $(function() {
             dataType: 'json',
             success: function (response) {
 
+                console.log(response);
+                $('select[name=student-faculty]').html('<option>'+response.facName+'</option>');
                 $('input[name=student-first-name]').val(response.first_name);
                 $('input[name=student-last-name]').val(response.last_name);
                 $('input[name=student-email]').val(response.email);
                 $('input[name=student-id]').val(response.id_number);
                 $('select[name=student-gender]').val(response.gender);
-                $('select[name=student-status]').val(response.name);
+                $('select[name=student-status]').val(response.statName);
                 $('input[name=student-password]').val(response.password);
 
             }});
@@ -665,4 +667,49 @@ $(function() {
     });
 
 
+    $('.getFaculty').on('change', function () {
+        var value = $('select[name=department]').val();
+
+        $('select[name=student-faculty]').html('<option value="" selected disabled>Select faculty</option>');
+        $.ajax({
+            type: 'POST',
+            url: './query.php',
+            data: {
+                getFaculty: value
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                $.each(response,function (key,data) {
+                    $('select[name=student-faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
+                });
+
+            }
+        });
+    });
+
+    $('.getSubject').on('change', function () {
+        var value = $('select[name=student-faculty]').val();
+
+        $('select[name=subject]').html('<option value="" selected disabled>Select subject</option>');
+        $.ajax({
+            type: 'POST',
+            url: './query.php',
+            data: {
+                getSubject: value
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                $.each(response,function (key,data) {
+                    $('select[name=subject]').append('<option value="'+data.name+'">'+data.name+'</option>')
+                });
+
+            }
+        });
+    });
+
+
+
 });
+
