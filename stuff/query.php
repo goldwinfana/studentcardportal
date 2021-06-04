@@ -46,24 +46,7 @@ if(isset($_POST['edit'])) {
         exit(0);
     }
 
-    if(isset($_FILES['edit-image'])){
-        $currentDirectory = getcwd();
-        $uploadDirectory = "/uploads/";
-        $fileName = $_FILES['edit-image']['name'];
-        $fileTmpName  = $_FILES['edit-image']['tmp_name'];
-        $fileExtensionsAllowed = ['jpeg','jpg','png'];
-        $fileExtension = strtolower(end(explode('.',$fileName)));
-        if (! in_array($fileExtension,$fileExtensionsAllowed)) {
-            $_SESSION['error'] = "This file extension is not allowed. Please upload a JPEG or PNG file";
-            header('Location: '.$return);
-            exit(0);
-        }
 
-
-        $uploadPath = $currentDirectory . $uploadDirectory . basename($fileName);
-    }else{
-        $fileName ='';
-    }
 
     //$fileSize = $_FILES['the_file']['size'];
 //    if ($fileSize > 4000000) {
@@ -79,19 +62,24 @@ if(isset($_POST['edit'])) {
     } else {
 
         try{
+            $filename = $_FILES['edit-image']['tmp_name'];
             $sql = $query->prepare("UPDATE stuff SET first_name=:first_name,last_name=:last_name, email=:email, 
                                                     id_number=:id_number,gender=:gender,image=:image,password=:password
                                          WHERE stuffNumber=:stuffNumber");
-            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number, 'gender'=>$gender,'image'=>$fileName,
+            $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number, 'gender'=>$gender,'image'=>$filename,
                 'password'=>$password,'stuffNumber'=>$id]);
             $_SESSION['success'] = 'Stuff updated successfully';
-            $_SESSION['image'] = $fileName;
-            if(isset($_FILES['edit-image'])) {
-                $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
-                if ($didUpload) {
-                    $_SESSION['image'] = $fileName;
-                } else {
-                    $_SESSION['error'] = 'Image could not be uploaded';
+            $_SESSION['image'] = $filename;
+            if(!empty($_FILES['edit-image']))
+            {
+                $path = "uploads/";
+                $path = $path . basename( $_FILES['edit-image']['name']);
+
+                if(move_uploaded_file($_FILES['edit-image']['tmp_name'], $path)) {
+                    echo "The file ".  basename( $_FILES['edit-image']['name']).
+                        " has been uploaded";
+                } else{
+                    echo "There was an error uploading the file, please try again!";
                 }
             }
 

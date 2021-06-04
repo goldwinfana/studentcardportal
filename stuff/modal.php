@@ -305,6 +305,10 @@
                     $('input[name=edit-id]').val(response.id_number);
                     $('select[name=edit-gender]').val(response.gender);
                     $('input[name=edit-password]').val(response.password);
+                    if(response.image ==''){
+                        $('input[name=edit-image]').attr('required',true);
+                    }
+
 
                 }});
             $('#edit-profile').modal('show');
