@@ -165,7 +165,7 @@ if(isset($_SESSION['logged'])){
                                         <td>'.$data["facName"].'</td>
                                         <td>'.$data["subjectCode"].'</td>
                                         <td>'.$data["venue"].'</td>
-                                        <td>'.$data["date"].'</td>
+                                        <td>'.str_replace('T',' @ ',$data["date"]).'</td>
                                     </tr>
                                         ';
                                 }
