@@ -123,9 +123,9 @@ if(isset($_SESSION['logged'])){
                     <p>SOUTH CAMPUS</p>
                     <p>|||| |||||| ||||| ||||||||||| ||||||||</p>
                 </div>
-                <a href="#" class="view-picture" style="width: 25%;padding: 25px 0px;text-align: right;text-decoration: none">
+                <a href="#" class="view-picture" style="width: 35%;padding: 25px 0px;text-align: center;text-decoration: none">
                     <img src="<?php if(!empty($_SESSION["image"])){echo "uploads/".$_SESSION["image"];}else{echo "../img/profile.png";} ?> " width="150">
-                    <p style="padding: 10px 0px;"><?php echo strtoupper(substr($_SESSION['name'],0,1).'. '.substr($_SESSION['name'],strpos($_SESSION['name'],' '))); ?></p>
+                    <p style="padding: 10px 0px;font-size: x-small"><?php echo strtoupper(substr($_SESSION['name'],0,1).'. '.substr($_SESSION['name'],strpos($_SESSION['name'],' '))); ?></p>
                 </a>
             </div>
             <div class="col-lg-8" style="width: 100%">

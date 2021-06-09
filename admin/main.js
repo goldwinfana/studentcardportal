@@ -585,7 +585,7 @@ $(function() {
             dataType: 'json',
             success: function (response) {
 
-                $('select[name=student-faculty]').html('<option>'+response.facName+'</option>');
+                $('select[name=student-faculty]').html('<option value="'+response.faculty+'">'+response.facName+'</option>');
                 $('input[name=student-first-name]').val(response.first_name);
                 $('input[name=student-last-name]').val(response.last_name);
                 $('input[name=student-email]').val(response.email);

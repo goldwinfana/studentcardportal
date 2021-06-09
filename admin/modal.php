@@ -314,7 +314,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Save</button>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Update</button>
                 </form>
             </div>
         </div>
