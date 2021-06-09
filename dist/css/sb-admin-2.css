@@ -521,3 +521,10 @@ navbar{
     display: block!important;
   }
 }
+
+.active{
+  color: green;
+}
+.inactive{
+  color: red;
+}

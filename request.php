@@ -126,7 +126,7 @@ if(isset($_POST['login'])){
             }
         }
 
-        $sql = $conn->prepare("SELECT * FROM student WHERE email = :email");
+        $sql = $conn->prepare("SELECT * FROM student,status WHERE email = :email AND status.id=student.status");
         $sql->execute(['email'=>$email]);
         $results = $sql->fetch();
 
@@ -138,6 +138,8 @@ if(isset($_POST['login'])){
                 $_SESSION['id'] = $results['studentNumber'];
                 $_SESSION["logged"] = true;
                 $_SESSION["email"] = $results['email'];
+                $_SESSION["status"] = $results['name'];
+
                 header('location: student/home.php');
                 exit(0);
             }
