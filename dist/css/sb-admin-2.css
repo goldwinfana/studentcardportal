@@ -520,6 +520,13 @@ navbar{
   .timeTable{
     display: block!important;
   }
+  .log-div{
+    width: 100% !important;
+  }
+  .reg-div{
+    width: 100% !important;
+    margin: 15px !important;
+  }
 }
 
 .active{

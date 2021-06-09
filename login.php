@@ -53,7 +53,7 @@ if(isset($_SESSION['logged'])){
     <div class="row">
 
 
-        <div class="col-md-5 col-md-offset-4">
+        <div class="col-md-5 col-md-offset-4 log-div">
             <div style="margin-top: 15%">
                 <?php
                 if(isset($_SESSION['error'])){

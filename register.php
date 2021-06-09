@@ -47,7 +47,7 @@ if(isset($_SESSION['logged'])){
 
 <div class="container">
     <div class="row">
-        <div class=" flex-width">
+        <div class=" flex-width reg-div">
             <?php
             if(isset($_SESSION['error'])){
                 echo "
