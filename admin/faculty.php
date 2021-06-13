@@ -30,6 +30,7 @@ if(isset($_SESSION['islogged'])){
     <!-- Custom CSS -->
     <link href="../dist/css/admin.css" rel="stylesheet">
 
+
     <!-- Morris Charts CSS -->
     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -145,7 +146,7 @@ if(isset($_SESSION['islogged'])){
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Stuff</h1>
+                    <h1 class="page-header">Faculty</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -175,18 +176,19 @@ if(isset($_SESSION['islogged'])){
                 ?>
             </div>
 
-            <div class="row" style="margin: 25px 0px">
-                <button class="btn btn-primary add-stuff"><i class="fa fa-user-plus"></i> Add Stuff</button>
-            </div>
+            <div class="row timetable-width">
+                <form  method="post" action="query.php" style="display: inherit;width: 100%">
 
+                    <div class="form-group" style="width: 100%;margin: 5px">
+                        <input class="form-control" name="add-faculty" placeholder="Enter faculty name" required>
+                    </div>
+                    <button type="submit" class="form-control btn-primary" style="margin: 5px">Save</button>
+                </form>
+            </div>
             <div class="row">
                     <table id="_table" class="table table-bordered table table-striped table-hover" style="width: 100%;">
                         <thead>
-                            <th>Stuff Number</th>
-                            <th>Name</th>
-                            <th>Identity Number</th>
-                            <th>Gender</th>
-                            <th>Status</th>
+                            <th>Faculty Name</th>
                             <th>Action</th>
 
                         </thead>
@@ -195,7 +197,7 @@ if(isset($_SESSION['islogged'])){
                         <?php
 
                         $query = $connect->open();
-                        $sql = $query->prepare("SELECT * FROM stuff,status where stuff.status=status.id");
+                        $sql = $query->prepare("SELECT * from faculty");
                         $sql->execute();
 
                         if($sql->rowCount() > 0){
@@ -203,19 +205,11 @@ if(isset($_SESSION['islogged'])){
 
                                 echo '
                                      <tr>
-                                        <td>'.$data["stuffNumber"].'</td>
-                                        <td>'.$data["first_name"].' '.$data["last_name"].'</td>
-                                        <td>'.$data["id_number"].'</td>
-                                        <td>'.$data["gender"].'</td>';
-                                        if($data["name"] =="active") {
-                                            echo '<td style="color: darkgreen">' . $data["name"] . '</td>';
-                                        }else{
-                                            echo '<td style="color: red">' . $data["name"] . '</td>';
-                                        }
-                                        echo '<td>
+                                        <td>'.$data["name"].'</td>
+                                        <td>
                                             <div class="d-flex" >
-                                                <a id="'.$data["stuffNumber"].'" class="action-btn btn-warning edit-stuff" title="Edit"><i class="fa fa-pencil"></i></a>
-                                                <a id="'.$data["stuffNumber"].'" class="action-btn btn-danger delete-stuff" title="Delete"><i class="fa fa-trash"></i></a>
+                                                <a id="'.$data["id"].'" class="action-btn btn-warning edit-faculty" for="'.$data["name"].'" title="Edit"><i class="fa fa-pencil"></i></a>
+                                                <a id="'.$data["id"].'" class="action-btn btn-danger delete-faculty" for="'.$data["name"].'" title="Delete"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                      </tr>
@@ -247,6 +241,7 @@ if(isset($_SESSION['islogged'])){
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
+    <script src="../js/sb-admin-2.js"></script>
 
     <script type="text/javascript" src="../js/dataTables.min.js"></script>
     <script type="text/javascript" src="../js/bootTables.min.js"></script>

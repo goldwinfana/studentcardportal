@@ -709,6 +709,53 @@ $(function() {
     });
 
 
+    $('.delete-faculty').on('click', function () {
 
+        $('input[name=delete-faculty]').val(this.id);
+        $('.lbl-dlt').html('Confirm delete for faculty <i class="text-danger">'+$('#'+this.id).attr('for')+'</i>');
+        $('#delete-faculty').modal('show');
+    });
+
+    $('.edit-faculty').on('click', function () {
+        $('input[name=edit-faculty]').val(this.id);
+        $.ajax({
+            type: 'POST',
+            url: './query.php',
+            data: {
+                getFaculty: this.id
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                $('input[name=edit-faculty-name]').val(response.name);
+
+            }});
+        $('#edit-faculty').modal('show');
+    });
+
+    $('.delete-department').on('click', function () {
+
+        $('input[name=delete-department]').val(this.id);
+        $('.lbl-dlt').html('Confirm delete for department <i class="text-danger">'+$('#'+this.id).attr('for')+'</i>');
+        $('#delete-department').modal('show');
+    });
+
+    $('.edit-department').on('click', function () {
+        $('input[name=edit-department]').val(this.id);
+        $.ajax({
+            type: 'POST',
+            url: './query.php',
+            data: {
+                getDepartment: this.id
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                $('input[name=edit-department-name]').val(response.depName);
+                $('select[name=faculty]').append('<option value="'+response.facID+'" selected>'+response.facName+'</option>');
+
+            }});
+        $('#edit-department').modal('show');
+    });
 });
 

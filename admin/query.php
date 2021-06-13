@@ -3,7 +3,6 @@ include '../session.php';
 $query = $connect->open();
 $return = $_SERVER['HTTP_REFERER'];
 
-
 if(isset($_POST['new-user'])) {
 
     $email = $_POST['email'];
@@ -63,6 +62,124 @@ if(isset($_POST['new-user'])) {
     header('Location: '.$return);
 
 }
+
+if(isset($_POST['add-faculty'])){
+    $faculty = $_POST['add-faculty'];
+    $sql = $query->prepare("SELECT * FROM faculty WHERE name=:name");
+    $sql->execute(['name' => $faculty]);
+    if($sql->rowCount() > 0){
+        $_SESSION['error'] = 'Faculty already exist';
+    }else{
+        $sql = $query->prepare("INSERT INTO faculty(name) VALUES (:name)");
+        $sql->execute(['name'=>$faculty]);
+        $_SESSION['success'] = 'Faculty added successfully';
+    }
+    header('Location: '.$return);
+}
+
+if(isset($_POST['delete-faculty'])){
+    $faculty = $_POST['delete-faculty'];
+
+    try{
+        $sql = $query->prepare("DELETE FROM faculty WHERE id=:id");
+        $sql->execute(['id'=>$faculty]);
+
+        $_SESSION['success'] = 'Faculty deleted successfully';
+    }
+    catch(PDOException $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+    header('Location: '.$return);
+
+}
+
+if(isset($_POST['edit-faculty'])) {
+    $id = $_POST['edit-faculty'];
+    $name = $_POST['edit-faculty-name'];
+
+    try{
+        $sql = $query->prepare("UPDATE faculty SET name=:name WHERE id=:id");
+        $sql->execute(['name'=>$name,'id'=>$id]);
+        $_SESSION['success'] = 'Faculty updated successfully';
+
+    }catch (Exception $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+
+    header('Location: '.$return);
+}
+
+if(isset($_POST['getFaculty'])) {
+    $id= $_POST['getFaculty'];
+
+    $sql = $query->prepare("SELECT * FROM faculty WHERE id=:id");
+    $sql->execute(['id' => $id]);
+    $results = $sql->fetch();
+
+    echo json_encode($results);
+}
+
+
+if(isset($_POST['add-department'])){
+    $department = $_POST['add-department'];
+    $faculty = $_POST['faculty'];
+    $sql = $query->prepare("SELECT * FROM department WHERE name=:name AND facID=:facID");
+    $sql->execute(['name' => $department,'facID'=>$faculty]);
+    if($sql->rowCount() > 0){
+        $_SESSION['error'] = 'Department already exist';
+    }else{
+        $sql = $query->prepare("INSERT INTO department(name,facID) VALUES (:name,:facID)");
+        $sql->execute(['name'=>$department,'facID'=>$faculty]);
+        $_SESSION['success'] = 'Department added successfully';
+    }
+    header('Location: '.$return);
+}
+
+if(isset($_POST['delete-department'])){
+    $department = $_POST['delete-department'];
+
+    try{
+        $sql = $query->prepare("DELETE FROM department WHERE id=:id");
+        $sql->execute(['id'=>$department]);
+
+        $_SESSION['success'] = 'Department deleted successfully';
+    }
+    catch(PDOException $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+    header('Location: '.$return);
+
+}
+
+if(isset($_POST['edit-department'])) {
+    $id = $_POST['edit-department'];
+    $name = $_POST['edit-department-name'];
+    $faculty = $_POST['faculty'];
+
+    try{
+        $sql = $query->prepare("UPDATE department SET name=:name,facID=:facID WHERE id=:id");
+        $sql->execute(['name'=>$name,'facID'=>$faculty,'id'=>$id]);
+        $_SESSION['success'] = 'Department updated successfully';
+
+    }catch (Exception $e){
+        $_SESSION['error'] = $e->getMessage();
+    }
+
+    header('Location: '.$return);
+}
+
+if(isset($_POST['getDepartment'])) {
+    $id= $_POST['getDepartment'];
+
+    $sql = $query->prepare("SELECT *,department.name AS depName,faculty.name AS facName
+                                     FROM department,faculty WHERE faculty.id=department.facID AND department.id=:id");
+    $sql->execute(['id' => $id]);
+    $results = $sql->fetch();
+
+    echo json_encode($results);
+}
+
+
 
 if(isset($_POST['add-timetable'])){
     $faculty = $_POST['student-faculty'];
@@ -372,19 +489,19 @@ if (isset($_POST['edit_admins'])) {
     header('location: welcome.php');
 }
 
-if (isset($_POST['getDepartment'])) {
-    $getDepartment = $_POST['getDepartment'];
-
-    try {
-        $sql = $query->prepare("SELECT * FROM department WHERE facID=:id");
-        $sql->execute(['id' => $getDepartment]);
-        $results = $sql->fetchAll();
-    }catch (Exception $e){
-        $results = $e->getMessage();
-    }
-
-    echo json_encode($results);
-}
+//if (isset($_POST['getDepartment'])) {
+//    $getDepartment = $_POST['getDepartment'];
+//
+//    try {
+//        $sql = $query->prepare("SELECT * FROM department WHERE facID=:id");
+//        $sql->execute(['id' => $getDepartment]);
+//        $results = $sql->fetchAll();
+//    }catch (Exception $e){
+//        $results = $e->getMessage();
+//    }
+//
+//    echo json_encode($results);
+//}
 
 if (isset($_POST['getSubject'])) {
     $getDepartment= $_POST['getSubject'];

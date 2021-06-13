@@ -19,7 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f861390-5b73-4b3b-a67d-3e9d0d7d37b9" name="Default Changelist" comment="" />
+    <list default="true" id="0f861390-5b73-4b3b-a67d-3e9d0d7d37b9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/admins.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/admins.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/query.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/query.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/students.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/students.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/stuff.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/stuff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/timetable.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/timetable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/sb-admin-2.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/css/sb-admin-2.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,18 +60,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\studentcardportal" />
-      <recent name="C:\xampp\htdocs\studentcardportal\admin" />
-      <recent name="C:\xampp\htdocs\studentcardportal\student" />
-      <recent name="C:\xampp\htdocs\studentcardportal\stuff" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\studentCardPortal\admin" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\studentcardportal\admin" />
+      <recent name="C:\xampp\htdocs\studentcardportal" />
+      <recent name="C:\xampp\htdocs\studentcardportal\student" />
+      <recent name="C:\xampp\htdocs\studentcardportal\stuff" />
       <recent name="C:\xampp\htdocs\studentCardPortal\admin" />
     </key>
   </component>
@@ -85,6 +96,7 @@
       <workItem from="1623182943051" duration="172000" />
       <workItem from="1623266199230" duration="8758000" />
       <workItem from="1623569027530" duration="8318000" />
+      <workItem from="1623608548720" duration="7944000" />
     </task>
     <servers />
   </component>

@@ -226,6 +226,142 @@
 </div>
 </div>
 
+<div class="modal fade" id="delete-faculty">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Delete Faculty</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php">
+                    <input name="delete-faculty" hidden>
+
+                    <div class="form-group">
+                        <label class="lbl-dlt"></label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="edit-faculty">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Edit Faculty</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php" enctype="multipart/form-data">
+
+                    <input name="edit-faculty" hidden>
+
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter faculty name" name="edit-faculty-name" type="text" required autofocus>
+                        <label id="student-email"></label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade" id="delete-department">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Delete Department</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php">
+                    <input name="delete-department" hidden>
+
+                    <div class="form-group">
+                        <label class="lbl-dlt"></label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="edit-department">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header navbar-default">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Edit Department</b></h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" method="POST" action="query.php" enctype="multipart/form-data">
+
+                    <input name="edit-department" hidden>
+
+                    <div class="form-group" style="width: 100%;margin: 5px">
+                        <select class="form-control" name="faculty" required>
+                            <option value="" selected disabled>Select faculty</option>
+                            <?php
+
+                            $conn = $connect->open();
+                            $sql = $conn->prepare("SELECT * FROM faculty");
+                            $sql->execute();
+                            $datas = $sql->fetchAll();
+                            if($sql->rowCount() > 0){
+                                foreach ($datas as $data){
+                                    echo '<option value="'.$data["id"].'">'.$data["name"].'</option>';
+                                }
+                            }
+                            $connect->close();
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="width: 100%;margin: 5px">
+                        <input class="form-control" name="edit-department-name" placeholder="Enter department name" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
 <!--//student-->
 <div class="modal fade" id="edit-student">
     <div class="modal-dialog">

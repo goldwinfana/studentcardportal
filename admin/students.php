@@ -118,6 +118,8 @@ if(isset($_SESSION['islogged'])){
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li><a href="faculty.php"><i class="fa fa-hospital-o fa-fw"></i> Faculty</a>
+                        <li><a href="departments.php"><i class="fa fa-book fa-fw"></i> Department</a>
                         <li><a href="timetable.php"><i class="fa fa-calendar-times-o fa-fw"></i> Time Table</a>
                         <li><a href="../logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
