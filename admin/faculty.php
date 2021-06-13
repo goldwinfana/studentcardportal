@@ -205,7 +205,7 @@ if(isset($_SESSION['islogged'])){
 
                                 echo '
                                      <tr>
-                                        <td>'.$data["name"].'</td>
+                                        <td>'.ucfirst($data["name"]).'</td>
                                         <td>
                                             <div class="d-flex" >
                                                 <a id="'.$data["id"].'" class="action-btn btn-warning edit-faculty" for="'.$data["name"].'" title="Edit"><i class="fa fa-pencil"></i></a>
