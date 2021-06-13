@@ -120,21 +120,21 @@ function submitForm(){
 
 }
 
-function getFaculty() {
-    var value = $('select[name=department]').val();
+function getDepartment() {
+    var value = $('select[name=faculty]').val();
 
-    $('select[name=faculty]').html('<option value="" selected disabled>Select faculty</option>');
+    $('select[name=department]').html('<option value="" selected disabled>Select department</option>');
     $.ajax({
         type: 'POST',
         url: './request.php',
         data: {
-            getFaculty: value
+            getDepartment: value
         },
         dataType: 'json',
         success: function (response) {
 
             $.each(response,function (key,data) {
-               $('select[name=faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
+               $('select[name=department]').append('<option value="'+data.id+'">'+data.name+'</option>')
             });
 
         }});

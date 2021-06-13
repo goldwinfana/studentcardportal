@@ -666,21 +666,21 @@ $(function() {
     });
 
 
-    $('.getFaculty').on('change', function () {
-        var value = $('select[name=department]').val();
+    $('.getDepartment').on('change', function () {
+        var value = $('select[name=student-faculty]').val();
 
-        $('select[name=student-faculty]').html('<option value="" selected disabled>Select faculty</option>');
+        $('select[name=student-department]').html('<option value="" selected disabled>Select department</option>');
         $.ajax({
             type: 'POST',
             url: './query.php',
             data: {
-                getFaculty: value
+                getDepartment: value
             },
             dataType: 'json',
             success: function (response) {
 
                 $.each(response,function (key,data) {
-                    $('select[name=student-faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
+                    $('select[name=student-department]').append('<option value="'+data.id+'">'+data.name+'</option>')
                 });
 
             }
@@ -688,7 +688,7 @@ $(function() {
     });
 
     $('.getSubject').on('change', function () {
-        var value = $('select[name=student-faculty]').val();
+        var value = $('select[name=student-department]').val();
 
         $('select[name=subject]').html('<option value="" selected disabled>Select subject</option>');
         $.ajax({

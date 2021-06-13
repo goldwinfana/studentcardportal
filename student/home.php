@@ -144,7 +144,7 @@ if(isset($_SESSION['logged'])){
                             $conn = $connect->open();
                             $sql = $conn->prepare("SELECT *,faculty.name AS facName,department.name AS depName FROM timetable,department,faculty,student 
                                                             WHERE timetable.departmentID=department.id 
-                                                            AND timetable.facultyID=faculty.id AND student.faculty=faculty.id AND student.studentNumber=:id");
+                                                            AND timetable.departmentID=department.id AND student.department=department.id AND student.studentNumber=:id");
                             $sql->execute(['id'=>$_SESSION['id']]);
                             $datas = $sql->fetchAll();
                             if($sql->rowCount() > 0){
@@ -152,7 +152,7 @@ if(isset($_SESSION['logged'])){
                                         <table id="time-table">
                                         <thead>
                                         <tr>
-                                            <th>Department</th>
+                                            <th>Faculty</th>
                                             <th>Course</th>
                                             <th>Module</th>
                                             <th>Venue</th>
@@ -162,8 +162,8 @@ if(isset($_SESSION['logged'])){
                                 foreach ($datas as $data){
                                     echo '
                                     <tr>
-                                    <td>'.$data["depName"].'</td>
-                                        <td>'.$data["facName"].'</td>
+                                    <td>'.$data["facName"].'</td>
+                                        <td>'.$data["depName"].'</td>
                                         <td>'.$data["subjectCode"].'</td>
                                         <td>'.$data["venue"].'</td>
                                         <td>'.str_replace('T',' @ ',$data["date"]).'</td>

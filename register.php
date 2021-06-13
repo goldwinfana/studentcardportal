@@ -113,12 +113,12 @@ if(isset($_SESSION['logged'])){
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="department" onchange="getFaculty()" required>
-                                    <option value="" selected disabled>Select department</option>
+                                <select class="form-control" name="faculty" onchange="getDepartment()" required>
+                                    <option value="" selected disabled>Select faculty</option>
                                     <?php
 
                                     $conn = $connect->open();
-                                    $sql = $conn->prepare("SELECT * FROM department");
+                                    $sql = $conn->prepare("SELECT * FROM faculty");
                                     $sql->execute();
                                     $datas = $sql->fetchAll();
                                     if($sql->rowCount() > 0){
@@ -132,8 +132,8 @@ if(isset($_SESSION['logged'])){
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="faculty" required>
-                                    <option value="" selected disabled>Select faculty</option>
+                                <select class="form-control" name="department" required>
+                                    <option value="" selected disabled>Select department</option>
                                 </select>
                             </div>
 

@@ -5,11 +5,11 @@ include 'session.php';
 $conn = $connect->open();
 $return = $_SERVER['HTTP_REFERER'];
 
-if (isset($_POST['getFaculty'])) {
-    $getFaculty = $_POST['getFaculty'];
+if (isset($_POST['getDepartment'])) {
+    $getDepartment= $_POST['getDepartment'];
 
-    $sql = $conn->prepare("SELECT * FROM faculty WHERE depID=:id");
-    $sql->execute(['id' => $getFaculty]);
+    $sql = $conn->prepare("SELECT * FROM department WHERE facID=:id");
+    $sql->execute(['id' => $getDepartment]);
     $results = $sql->fetchAll();
 
     echo json_encode($results);
@@ -22,7 +22,7 @@ if(isset($_POST['register'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $gender =$_POST['gender'];
-    $faculty =$_POST['faculty'];
+    $department =$_POST['department'];
     $idNo=$_POST['id'];
     $no = substr(date('Y'),2,2).substr($idNo,2,4).substr(rand(),0,3);
 
@@ -55,9 +55,9 @@ if(isset($_POST['register'])){
         try {
 
             if($_POST['userRegister'] =='student'){
-                $query = $conn->prepare("INSERT INTO student (studentNumber,first_name,last_name,gender,faculty, email,id_number,status, password) 
-            VALUES (:studentNumber,:first_name,:last_name, :gender,:faculty,:email,:id_number,:status,:password)");
-                $query->execute(['first_name' => $fname,'last_name' => $lname, 'gender' => $gender,'faculty' => $faculty, 'email' => $email,'id_number' => $idNo,'status'=>0, 'password' => $password,'studentNumber'=>$no]);
+                $query = $conn->prepare("INSERT INTO student (studentNumber,first_name,last_name,gender,department, email,id_number,status, password) 
+            VALUES (:studentNumber,:first_name,:last_name, :gender,:department,:email,:id_number,:status,:password)");
+                $query->execute(['first_name' => $fname,'last_name' => $lname, 'gender' => $gender,'faculty' => $department, 'email' => $email,'id_number' => $idNo,'status'=>0, 'password' => $password,'studentNumber'=>$no]);
 
             }else{
                 $query = $conn->prepare("INSERT INTO stuff (stuffNumber,first_name,last_name,gender, email,id_number,status, password) 

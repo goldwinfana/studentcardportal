@@ -7,8 +7,8 @@ if (isset($_POST['getStudent'])) {
     $studentNumber = $_SESSION['id'];
 
     $sql = $query->prepare("SELECT *,faculty.name AS facName,department.name AS depName FROM student,status,department,faculty 
-                                    WHERE studentNumber=:studentNumber AND status.id = student.status AND faculty.depID=department.id 
-                                    AND faculty.id = student.faculty");
+                                    WHERE studentNumber=:studentNumber AND status.id = student.status AND department.facID=faculty.id 
+                                    AND department.id = student.department");
     $sql->execute(['studentNumber' => $studentNumber]);
     $results = $sql->fetch();
 

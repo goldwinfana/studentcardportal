@@ -177,12 +177,12 @@ if(isset($_SESSION['islogged'])){
             <div class="row timetable-width">
                 <form  method="post" action="query.php" style="display: inherit;width: 100%">
                     <div class="form-group" style="width: 100%;margin: 5px">
-                        <select class="form-control getFaculty" name="department">
-                            <option value="" selected disabled>Select department</option>
+                        <select class="form-control getDepartment" name="student-faculty">
+                            <option value="" selected disabled>Select faculty</option>
                             <?php
 
                             $conn = $connect->open();
-                            $sql = $conn->prepare("SELECT * FROM department");
+                            $sql = $conn->prepare("SELECT * FROM faculty");
                             $sql->execute();
                             $datas = $sql->fetchAll();
                             if($sql->rowCount() > 0){
@@ -196,8 +196,8 @@ if(isset($_SESSION['islogged'])){
                     </div>
 
                     <div class="form-group" style="width: 100%;margin: 5px">
-                        <select class="form-control getSubject" name="student-faculty" required>
-                            <option value="" selected disabled>Select faculty</option>
+                        <select class="form-control getSubject" name="student-department" required>
+                            <option value="" selected disabled>Select department</option>
                         </select>
                     </div>
 
@@ -215,8 +215,8 @@ if(isset($_SESSION['islogged'])){
                     <table id="_table" class="table table-bordered table table-striped table-hover" style="width: 100%;">
                         <thead>
                             <th>Date</th>
-                            <th>Department</th>
                             <th>Faculty</th>
+                            <th>Department</th>
                             <th>Subject</th>
                             <th>Venue</th>
                             <th>Action</th>
@@ -238,8 +238,8 @@ if(isset($_SESSION['islogged'])){
                                 echo '
                                      <tr>
                                         <td>'.$data["date"].'</td>
-                                        <td>'.$data["depName"].'</td>
                                         <td>'.$data["facName"].'</td>
+                                        <td>'.$data["depName"].'</td>
                                         <td>'.$data["subjectCode"].'</td>
                                         <td>' . $data["venue"] . '</td>
                                         <td>

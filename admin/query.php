@@ -66,7 +66,7 @@ if(isset($_POST['new-user'])) {
 
 if(isset($_POST['add-timetable'])){
     $faculty = $_POST['student-faculty'];
-    $department = $_POST['department'];
+    $department = $_POST['student-department'];
     $subject = $_POST['subject'];
     $venue= str_replace('T',' ',$_POST['venue']);
     $date =$_POST['date'];
@@ -200,9 +200,9 @@ if(isset($_POST['delete-admin'])){
 if (isset($_POST['getStudent'])) {
     $studentNumber = $_POST['getStudent'];
 
-    $sql = $query->prepare("SELECT *,faculty.name AS facName,status.id AS statName FROM student,status,faculty 
+    $sql = $query->prepare("SELECT *,faculty.name AS facName,status.id AS statName FROM student,status,department 
                                      WHERE studentNumber=:studentNumber 
-                                     AND status.id = student.status AND faculty.id = student.faculty");
+                                     AND status.id = student.status AND department.id = student.department");
     $sql->execute(['studentNumber' => $studentNumber]);
     $results = $sql->fetch();
 
@@ -218,7 +218,7 @@ if(isset($_POST['edit-student'])) {
     $gender = $_POST['student-gender'];
     $status = $_POST['student-status'];
     $password= $_POST['student-password'];
-    $faculty= $_POST['student-faculty'];
+    $department= $_POST['student-department'];
 
     $sql = $query->prepare("SELECT * FROM student WHERE studentNumber=:studentNumber ");
     $sql->execute(['studentNumber' => $id]);
@@ -229,10 +229,10 @@ if(isset($_POST['edit-student'])) {
 
         try{
             $sql = $query->prepare("UPDATE student SET first_name=:first_name,last_name=:last_name, email=:email, 
-                                                    id_number=:id_number,status=:status,gender=:gender,faculty=:faculty,password=:password
+                                                    id_number=:id_number,status=:status,gender=:gender,department=:department,password=:password
                                          WHERE studentNumber=:studentNumber");
             $sql->execute(['first_name'=>$fname,'last_name'=>$lname,'email'=>$email,'id_number'=>$id_number,'gender'=>$gender,'status'=>$status,
-                'password'=>$password,'faculty'=>$faculty,'studentNumber'=>$id]);
+                'password'=>$password,'department'=>$department,'studentNumber'=>$id]);
             $_SESSION['success'] = 'Student updated successfully';
         }catch (Exception $e){
             $_SESSION['error'] = $e->getMessage();
@@ -372,12 +372,12 @@ if (isset($_POST['edit_admins'])) {
     header('location: welcome.php');
 }
 
-if (isset($_POST['getFaculty'])) {
-    $getFaculty = $_POST['getFaculty'];
+if (isset($_POST['getDepartment'])) {
+    $getDepartment = $_POST['getDepartment'];
 
     try {
-        $sql = $query->prepare("SELECT * FROM faculty WHERE depID=:id");
-        $sql->execute(['id' => $getFaculty]);
+        $sql = $query->prepare("SELECT * FROM department WHERE facID=:id");
+        $sql->execute(['id' => $getDepartment]);
         $results = $sql->fetchAll();
     }catch (Exception $e){
         $results = $e->getMessage();
@@ -387,11 +387,11 @@ if (isset($_POST['getFaculty'])) {
 }
 
 if (isset($_POST['getSubject'])) {
-    $getFaculty = $_POST['getSubject'];
+    $getDepartment= $_POST['getSubject'];
 
     try {
-        $sql = $query->prepare("SELECT * FROM subject WHERE facultyID=:id");
-        $sql->execute(['id' => $getFaculty]);
+        $sql = $query->prepare("SELECT * FROM subject WHERE departmentID=:id");
+        $sql->execute(['id' => $getDepartment]);
         $results = $sql->fetchAll();
     }catch (Exception $e){
         $results = $e->getMessage();

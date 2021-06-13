@@ -130,7 +130,7 @@
                     <div class="col-md-5 pr-1">
                         <div class="form-group">
                             <label>Profile Status</label>
-                            <span class="student-status profile-span"></span>
+                            <span class="student-status profile-span"><?php echo $_SESSION['status']?></span>
                         </div>
                     </div>
 
@@ -355,7 +355,7 @@
                     $('.student-gender').html(response.gender);
                     $('.student-age').html(age);
                     $('.student-sNumber').html(response.studentNumber);
-                    $('.student-status').html(response.name);
+
                     $('.student-dep').html(response.depName);
                     $('.student-fac').html(response.facName);
 

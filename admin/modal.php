@@ -242,12 +242,12 @@
                     <input name="edit-student" hidden>
 
                     <div class="form-group">
-                        <select class="form-control getFaculty" name="department">
-                            <option value="" selected disabled>Select department</option>
+                        <select class="form-control getDepartment" name="faculty">
+                            <option value="" selected disabled>Select faculty</option>
                             <?php
 
                             $conn = $connect->open();
-                            $sql = $conn->prepare("SELECT * FROM department");
+                            $sql = $conn->prepare("SELECT * FROM faculty");
                             $sql->execute();
                             $datas = $sql->fetchAll();
                             if($sql->rowCount() > 0){
@@ -261,8 +261,8 @@
                     </div>
 
                     <div class="form-group">
-                        <select class="form-control" name="student-faculty" required>
-                            <option value="" selected disabled>Select faculty</option>
+                        <select class="form-control" name="student-department" required>
+                            <option value="" selected disabled>Select department</option>
                         </select>
                     </div>
 
