@@ -13,10 +13,6 @@
                 <hr/>
                 <table class="table-striped table-hover -bold" style="text-align: initial">
                     <tr>
-                        <td>Stuff Number</td>
-                        <td class="admin-sNumber"></td>
-                    </tr>
-                    <tr>
                         <td>Name</td>
                         <td class="admin-name"></td>
                     </tr>
@@ -41,7 +37,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                    <button type="submit" class="btn btn-warning btn-flat edit-profile" data-dismiss="modal"><i class="fa fa-save"></i> Edit</button>
+                    <button id="<?php echo $_SESSION['id']?>" type="submit" class="btn btn-warning btn-flat edit-admin" data-dismiss="modal"><i class="fa fa-save"></i> Edit</button>
                     </form>
                 </div>
 

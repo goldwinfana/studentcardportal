@@ -494,7 +494,6 @@ $(function() {
                 $('.admin-id').html(response.id_number);
                 $('.admin-gender').html(response.gender);
                 $('.admin-age').html(age);
-                $('.admin-sNumber').html(response.id);
 
             }});
 
