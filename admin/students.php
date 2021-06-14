@@ -185,7 +185,7 @@ if(isset($_SESSION['islogged'])){
                             <th>Name</th>
                             <th>Identity Number</th>
                             <th>Gender</th>
-                            <th>Faculty</th>
+                            <th>Department</th>
                             <th>Action</th>
 
                         </thead>
@@ -194,7 +194,7 @@ if(isset($_SESSION['islogged'])){
                         <?php
 
                         $query = $connect->open();
-                        $sql = $query->prepare("SELECT * FROM student,faculty where student.faculty=faculty.id");
+                        $sql = $query->prepare("SELECT * FROM student,department where student.department=department.id");
                         $sql->execute();
 
                         if($sql->rowCount() > 0){
