@@ -583,8 +583,8 @@ $(function() {
             },
             dataType: 'json',
             success: function (response) {
-
-                $('select[name=student-faculty]').html('<option value="'+response.faculty+'">'+response.facName+'</option>');
+                $('select[name=faculty]').val(response.facID);
+                $('select[name=student-department]').html('<option value="'+response.department+'">'+response.depName+'</option>');
                 $('input[name=student-first-name]').val(response.first_name);
                 $('input[name=student-last-name]').val(response.last_name);
                 $('input[name=student-email]').val(response.email);
@@ -751,7 +751,7 @@ $(function() {
             success: function (response) {
 
                 $('input[name=edit-department-name]').val(response.depName);
-                $('select[name=faculty]').append('<option value="'+response.facID+'" selected>'+response.facName+'</option>');
+                $('select[name=faculty]').val(response.facID);
 
             }});
         $('#edit-department').modal('show');

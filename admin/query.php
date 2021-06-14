@@ -317,9 +317,10 @@ if(isset($_POST['delete-admin'])){
 if (isset($_POST['getStudent'])) {
     $studentNumber = $_POST['getStudent'];
 
-    $sql = $query->prepare("SELECT *,faculty.name AS facName,status.id AS statName FROM student,status,department 
+    $sql = $query->prepare("SELECT *,department.name AS depName,department.id AS depID,faculty.name AS facName,faculty.id AS facID,status.id AS statName 
+                                     FROM student,status,department,faculty 
                                      WHERE studentNumber=:studentNumber 
-                                     AND status.id = student.status AND department.id = student.department");
+                                     AND status.id = student.status AND department.id = student.department AND faculty.id=department.facID");
     $sql->execute(['studentNumber' => $studentNumber]);
     $results = $sql->fetch();
 
