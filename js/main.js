@@ -121,22 +121,27 @@ function submitForm(){
 }
 
 function getDepartment() {
-    var value = $('select[name=department]').val();
-
+    var id = $('select[name=department]').val();
     $('select[name=faculty]').html('<option value="" selected disabled>Select faculty</option>');
+    var response = JSON.parse(localStorage.getItem('faculty'));
+
+   $.each(response,function (key,data) {
+       if(id==data.depID){
+           $('select[name=faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
+       }
+   });
+}
+function getFaculty() {
     $.ajax({
         type: 'POST',
         url: './request.php',
         data: {
-            getDepartment: value
+            getDepartment: 2
         },
         dataType: 'json',
         success: function (response) {
-
-            $.each(response,function (key,data) {
-               $('select[name=faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
-            });
-
+            localStorage.setItem('faculty',JSON.stringify(response));
         }});
 }
 
+getFaculty();

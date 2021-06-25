@@ -8,8 +8,8 @@ $return = $_SERVER['HTTP_REFERER'];
 if (isset($_POST['getDepartment'])) {
     $getDepartment= $_POST['getDepartment'];
 
-    $sql = $conn->prepare("SELECT * FROM faculty WHERE depID=:id");
-    $sql->execute(['id' => $getDepartment]);
+    $sql = $conn->prepare("SELECT * FROM faculty");
+    $sql->execute();
     $results = $sql->fetchAll();
 
     echo json_encode($results);
