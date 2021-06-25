@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jun 13, 2021 at 12:29 PM
--- Server version: 8.0.25
--- PHP Version: 7.4.3
+-- Host: 127.0.0.1
+-- Generation Time: Jun 25, 2021 at 10:31 AM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `id_number` varchar(14) NOT NULL,
@@ -50,10 +50,10 @@ INSERT INTO `admin` (`id`, `name`, `email`, `id_number`, `gender`, `password`) V
 --
 
 CREATE TABLE `announcement` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `news` varchar(255) NOT NULL,
   `date` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `announcement`
@@ -70,16 +70,36 @@ INSERT INTO `announcement` (`id`, `news`, `date`) VALUES
 --
 
 CREATE TABLE `department` (
-  `id` int NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `facID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`id`, `name`, `facID`) VALUES
+INSERT INTO `department` (`id`, `name`) VALUES
+(1, 'ICT'),
+(2, 'Humanities'),
+(3, 'Science');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty`
+--
+
+CREATE TABLE `faculty` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `depID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faculty`
+--
+
+INSERT INTO `faculty` (`id`, `name`, `depID`) VALUES
 (1, 'Computer Science', 1),
 (2, 'Computer Systems', 1),
 (3, 'Local Government', 2),
@@ -90,33 +110,13 @@ INSERT INTO `department` (`id`, `name`, `facID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculty`
---
-
-CREATE TABLE `faculty` (
-  `id` int NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `faculty`
---
-
-INSERT INTO `faculty` (`id`, `name`) VALUES
-(1, 'ICT'),
-(2, 'Humanities'),
-(3, 'Science');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `status`
 --
 
 CREATE TABLE `status` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `status`
@@ -133,8 +133,8 @@ INSERT INTO `status` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `student` (
-  `id` int NOT NULL,
-  `studentNumber` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `studentNumber` int(14) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE `student` (
   `id_number` varchar(14) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `status` varchar(25) DEFAULT NULL,
-  `department` int NOT NULL,
+  `faculty` int(11) NOT NULL,
   `password` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -150,10 +150,10 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `studentNumber`, `first_name`, `last_name`, `email`, `gender`, `id_number`, `image`, `status`, `department`, `password`) VALUES
+INSERT INTO `student` (`id`, `studentNumber`, `first_name`, `last_name`, `email`, `gender`, `id_number`, `image`, `status`, `faculty`, `password`) VALUES
 (10, 211111110, 'less', 'majola', 'gd@gmail.com', 'male', '0011111111111', 'crime-thailand.gif', '1', 3, '1234@Abc'),
-(11, 211111388, 'test', 'test', 'test@gmail.com', 'female', '0011111111111', NULL, '1', 2, '1234@Abc'),
-(12, 210215126, 'Ben', 'Mahlangu', 'mncedi104@gmail.com', 'male', '9502155386081', '', '0', 1, 'Mncedi!@104');
+(11, 211111388, 'test', 'test', 'test@gmail.com', 'female', '0011111111111', NULL, '0', 2, '1234@Abc'),
+(12, 211212927, 'test', 'bila', 'test2@gmail.com', 'male', '8012125000000', NULL, '0', 1, '1234@Abc');
 
 -- --------------------------------------------------------
 
@@ -162,8 +162,8 @@ INSERT INTO `student` (`id`, `studentNumber`, `first_name`, `last_name`, `email`
 --
 
 CREATE TABLE `stuff` (
-  `id` int NOT NULL,
-  `stuffNumber` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `stuffNumber` int(14) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -188,16 +188,16 @@ INSERT INTO `stuff` (`id`, `stuffNumber`, `first_name`, `last_name`, `email`, `g
 --
 
 CREATE TABLE `subject` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `departmentID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `facultyID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `subject`
 --
 
-INSERT INTO `subject` (`id`, `name`, `departmentID`) VALUES
+INSERT INTO `subject` (`id`, `name`, `facultyID`) VALUES
 (1, 'DSO17AT', 1),
 (2, 'IDC17AT', 1),
 (3, 'DSO17BT', 1),
@@ -220,13 +220,13 @@ INSERT INTO `subject` (`id`, `name`, `departmentID`) VALUES
 --
 
 CREATE TABLE `timetable` (
-  `id` int NOT NULL,
-  `departmentID` int NOT NULL,
-  `facultyID` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `departmentID` int(11) NOT NULL,
+  `facultyID` int(11) NOT NULL,
   `subjectCode` varchar(25) NOT NULL,
   `venue` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `timetable`
@@ -303,55 +303,55 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `stuff`
 --
 ALTER TABLE `stuff`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

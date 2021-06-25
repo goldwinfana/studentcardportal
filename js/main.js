@@ -121,9 +121,9 @@ function submitForm(){
 }
 
 function getDepartment() {
-    var value = $('select[name=faculty]').val();
+    var value = $('select[name=department]').val();
 
-    $('select[name=department]').html('<option value="" selected disabled>Select department</option>');
+    $('select[name=faculty]').html('<option value="" selected disabled>Select faculty</option>');
     $.ajax({
         type: 'POST',
         url: './request.php',
@@ -134,7 +134,7 @@ function getDepartment() {
         success: function (response) {
 
             $.each(response,function (key,data) {
-               $('select[name=department]').append('<option value="'+data.id+'">'+data.name+'</option>')
+               $('select[name=faculty]').append('<option value="'+data.id+'">'+data.name+'</option>')
             });
 
         }});
