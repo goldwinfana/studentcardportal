@@ -55,7 +55,7 @@ if(isset($_POST['register'])){
         try {
 
             if($_POST['userRegister'] =='student'){
-                $query = $conn->prepare("INSERT INTO student (studentNumber,first_name,last_name,gender,department, email,id_number,status, password) 
+                $query = $conn->prepare("INSERT INTO student (studentNumber,first_name,last_name,gender,faculty, email,id_number,status, password) 
             VALUES (:studentNumber,:first_name,:last_name, :gender,:faculty,:email,:id_number,:status,:password)");
                 $query->execute(['first_name' => $fname,'last_name' => $lname, 'gender' => $gender,'faculty' => $faculty, 'email' => $email,'id_number' => $idNo,'status'=>0, 'password' => $password,'studentNumber'=>$no]);
 
