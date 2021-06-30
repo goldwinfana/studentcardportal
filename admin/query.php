@@ -63,16 +63,16 @@ if(isset($_POST['new-user'])) {
 
 }
 
-if(isset($_POST['add-faculty'])){
-    $faculty = $_POST['add-faculty'];
-    $sql = $query->prepare("SELECT * FROM faculty WHERE name=:name");
-    $sql->execute(['name' => $faculty]);
+if(isset($_POST['add-department'])){
+    $department = $_POST['add-department'];
+    $sql = $query->prepare("SELECT * FROM department WHERE name=:name");
+    $sql->execute(['name' => $department]);
     if($sql->rowCount() > 0){
-        $_SESSION['error'] = 'Faculty already exist';
+        $_SESSION['error'] = 'Department already exist';
     }else{
-        $sql = $query->prepare("INSERT INTO faculty(name) VALUES (:name)");
-        $sql->execute(['name'=>$faculty]);
-        $_SESSION['success'] = 'Faculty added successfully';
+        $sql = $query->prepare("INSERT INTO department(name) VALUES (:name)");
+        $sql->execute(['name'=>$department]);
+        $_SESSION['success'] = 'Department added successfully';
     }
     header('Location: '.$return);
 }
@@ -93,14 +93,14 @@ if(isset($_POST['delete-faculty'])){
 
 }
 
-if(isset($_POST['edit-faculty'])) {
-    $id = $_POST['edit-faculty'];
-    $name = $_POST['edit-faculty-name'];
+if(isset($_POST['edit-department'])) {
+    $id = $_POST['edit-department'];
+    $name = $_POST['edit-department-name'];
 
     try{
-        $sql = $query->prepare("UPDATE faculty SET name=:name WHERE id=:id");
+        $sql = $query->prepare("UPDATE department SET name=:name WHERE id=:id");
         $sql->execute(['name'=>$name,'id'=>$id]);
-        $_SESSION['success'] = 'Faculty updated successfully';
+        $_SESSION['success'] = 'Department updated successfully';
 
     }catch (Exception $e){
         $_SESSION['error'] = $e->getMessage();
@@ -109,10 +109,10 @@ if(isset($_POST['edit-faculty'])) {
     header('Location: '.$return);
 }
 
-if(isset($_POST['getFaculty'])) {
-    $id= $_POST['getFaculty'];
+if(isset($_POST['getDepartment'])) {
+    $id= $_POST['getDepartment'];
 
-    $sql = $query->prepare("SELECT * FROM faculty WHERE id=:id");
+    $sql = $query->prepare("SELECT * FROM department WHERE id=:id");
     $sql->execute(['id' => $id]);
     $results = $sql->fetch();
 
@@ -120,17 +120,17 @@ if(isset($_POST['getFaculty'])) {
 }
 
 
-if(isset($_POST['add-department'])){
-    $department = $_POST['add-department'];
-    $faculty = $_POST['faculty'];
-    $sql = $query->prepare("SELECT * FROM department WHERE name=:name AND facID=:facID");
-    $sql->execute(['name' => $department,'facID'=>$faculty]);
+if(isset($_POST['add-faculty'])){
+    $faculty = $_POST['add-faculty'];
+    $department = $_POST['department'];
+    $sql = $query->prepare("SELECT * FROM faculty WHERE name=:name AND depID=:depID");
+    $sql->execute(['name' => $faculty,'depID'=>$department]);
     if($sql->rowCount() > 0){
-        $_SESSION['error'] = 'Department already exist';
+        $_SESSION['error'] = 'Faculty already exist';
     }else{
-        $sql = $query->prepare("INSERT INTO department(name,facID) VALUES (:name,:facID)");
-        $sql->execute(['name'=>$department,'facID'=>$faculty]);
-        $_SESSION['success'] = 'Department added successfully';
+        $sql = $query->prepare("INSERT INTO faculty(name,depID) VALUES (:name,:depID)");
+        $sql->execute(['name'=>$faculty,'depID'=>$department]);
+        $_SESSION['success'] = 'Faculty added successfully';
     }
     header('Location: '.$return);
 }
@@ -151,15 +151,15 @@ if(isset($_POST['delete-department'])){
 
 }
 
-if(isset($_POST['edit-department'])) {
-    $id = $_POST['edit-department'];
-    $name = $_POST['edit-department-name'];
-    $faculty = $_POST['faculty'];
+if(isset($_POST['edit-faculty'])) {
+    $id = $_POST['edit-faculty'];
+    $name = $_POST['edit-faculty-name'];
+    $department = $_POST['department'];
 
     try{
-        $sql = $query->prepare("UPDATE department SET name=:name,facID=:facID WHERE id=:id");
-        $sql->execute(['name'=>$name,'facID'=>$faculty,'id'=>$id]);
-        $_SESSION['success'] = 'Department updated successfully';
+        $sql = $query->prepare("UPDATE faculty SET name=:name,depID=:depID WHERE id=:id");
+        $sql->execute(['name'=>$name,'depID'=>$department,'id'=>$id]);
+        $_SESSION['success'] = 'Faculty updated successfully';
 
     }catch (Exception $e){
         $_SESSION['error'] = $e->getMessage();
@@ -168,11 +168,11 @@ if(isset($_POST['edit-department'])) {
     header('Location: '.$return);
 }
 
-if(isset($_POST['getDepartment'])) {
-    $id= $_POST['getDepartment'];
+if(isset($_POST['getFaculty'])) {
+    $id= $_POST['getFaculty'];
 
     $sql = $query->prepare("SELECT *,department.name AS depName,faculty.name AS facName
-                                     FROM department,faculty WHERE faculty.id=department.facID AND department.id=:id");
+                                     FROM department,faculty WHERE faculty.depID=department.id AND faculty.id=:id");
     $sql->execute(['id' => $id]);
     $results = $sql->fetch();
 

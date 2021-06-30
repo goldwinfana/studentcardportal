@@ -144,7 +144,7 @@ if(isset($_SESSION['logged'])){
                             $conn = $connect->open();
                             $sql = $conn->prepare("SELECT *,faculty.name AS facName,department.name AS depName FROM timetable,department,faculty,student 
                                                             WHERE timetable.departmentID=department.id 
-                                                            AND timetable.departmentID=department.id AND student.department=department.id AND student.studentNumber=:id");
+                                                            AND timetable.departmentID=department.id AND student.faculty=faculty.id AND student.studentNumber=:id");
                             $sql->execute(['id'=>$_SESSION['id']]);
                             $datas = $sql->fetchAll();
                             if($sql->rowCount() > 0){

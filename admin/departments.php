@@ -146,7 +146,7 @@ if(isset($_SESSION['islogged'])){
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Faculty</h1>
+                    <h1 class="page-header">Department</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -178,24 +178,6 @@ if(isset($_SESSION['islogged'])){
 
             <div class="row timetable-width">
                 <form  method="post" action="query.php" style="display: inherit;width: 100%">
-                    <div class="form-group" style="width: 100%;margin: 5px">
-                        <select class="form-control" name="faculty" required>
-                            <option value="" selected disabled>Select faculty</option>
-                            <?php
-
-                            $conn = $connect->open();
-                            $sql = $conn->prepare("SELECT * FROM faculty");
-                            $sql->execute();
-                            $datas = $sql->fetchAll();
-                            if($sql->rowCount() > 0){
-                                foreach ($datas as $data){
-                                    echo '<option value="'.$data["id"].'">'.$data["name"].'</option>';
-                                }
-                            }
-                            $connect->close();
-                            ?>
-                        </select>
-                    </div>
 
                     <div class="form-group" style="width: 100%;margin: 5px">
                         <input class="form-control" name="add-department" placeholder="Enter department name" required>
@@ -206,7 +188,6 @@ if(isset($_SESSION['islogged'])){
             <div class="row">
                     <table id="_table" class="table table-bordered table table-striped table-hover" style="width: 100%;">
                         <thead>
-                            <th>Faculty Name</th>
                             <th>Department Name</th>
                             <th>Action</th>
 
@@ -216,8 +197,7 @@ if(isset($_SESSION['islogged'])){
                         <?php
 
                         $query = $connect->open();
-                        $sql = $query->prepare("SELECT *,department.name AS depName,faculty.name AS facName,department.id AS depID 
-                                                        from department,faculty WHERE faculty.id=department.facID");
+                        $sql = $query->prepare("SELECT * from department");
                         $sql->execute();
 
                         if($sql->rowCount() > 0){
@@ -225,12 +205,11 @@ if(isset($_SESSION['islogged'])){
 
                                 echo '
                                      <tr>
-                                        <td>'.ucfirst($data["facName"]).'</td>
-                                         <td>'.ucfirst($data["depName"]).'</td>
+                                        <td>'.ucfirst($data["name"]).'</td>
                                         <td>
                                             <div class="d-flex" >
-                                                <a id="'.$data["depID"].'" class="action-btn btn-warning edit-department" for="'.$data["depName"].'" title="Edit"><i class="fa fa-pencil"></i></a>
-                                                <a id="'.$data["depID"].'" class="action-btn btn-danger delete-department" for="'.$data["depName"].'" title="Delete"><i class="fa fa-trash"></i></a>
+                                                <a id="'.$data["id"].'" class="action-btn btn-warning edit-department" for="'.$data["name"].'" title="Edit"><i class="fa fa-pencil"></i></a>
+                                                <a id="'.$data["id"].'" class="action-btn btn-danger delete-department" for="'.$data["name"].'" title="Delete"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                      </tr>

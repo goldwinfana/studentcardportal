@@ -2,9 +2,9 @@
 
 Class Database{
  
-	private $server = "mysql:host=db4free.net;dbname=scportal";
-	private $username = "scportal";
-	private $password = "scportal";
+	private $server = "mysql:host=localhost;dbname=scportal";
+	private $username = "root";
+	private $password = "";
 	private $options  = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,);
 	protected $conn;
  	
